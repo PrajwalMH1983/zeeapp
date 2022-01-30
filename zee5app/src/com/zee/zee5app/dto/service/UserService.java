@@ -1,13 +1,17 @@
 package com.zee.zee5app.dto.service;
 
+import java.util.Optional;
+
 import com.zee.zee5app.dto.Register;
 import com.zee.zee5app.dto.repository.UserRepository;
+import com.zee.zee5app.dto.repository.UserRepository3;
 //Service objects are used to just call the services inside the main method
 //can we do this using 1 object
 //To fix this problem -- > they provided a solution called singleton design pattern --> one object for the specific type
+import com.zee.zee5app.dto.repository.impl.UserRepositoryImpl;
 
 public class UserService {
-	private UserRepository repository = UserRepository.getInstance();
+	private UserRepository3 repository = UserRepositoryImpl.getInstance();
 	//Service is consuming the repository
 	
 	private UserService() {
@@ -47,7 +51,7 @@ public class UserService {
 	}
 	
 	
-	public Register getUserById(String id) {
+	public Optional<Register> getUserById(String id) {
 		return this.repository.getUserById(id);
 	}
 	

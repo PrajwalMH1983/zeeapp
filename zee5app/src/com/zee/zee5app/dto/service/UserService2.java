@@ -8,6 +8,6 @@ public interface UserService2 {
 	public String addUser(Register register);
 	public String updateUser(String userId , Register register);
 	public Optional<Register> getUserById(String userId);
-	public Register[] getUsers();
+	public Register[] getAllUsers();
 	public String deleteUserById(String userId);
 }

@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService2 {
 	}
 
 	@Override
-	public Register[] getUsers() {
+	public Register[] getAllUsers() {
 		// TODO Auto-generated method stub
 		return userRepository.getUsers();
 	}

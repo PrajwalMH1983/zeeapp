@@ -70,25 +70,25 @@ public class UserRepositoryImpl implements UserRepository3 {
 		// TODO Auto-generated method stub
 		//We need to traverse the AL 
 		
-//		for (Register register : arrayList) {
-//			if(register != null && register.getId().equals(userId)) {
-//				return Optional.of(register);	//We use Optional.of() only when we are sure that our program is gonna return something
-//			}
-//
-//		}
-		//return Optional.empty();
-		
-		Register register2 = null;
 		for (Register register : arrayList) {
 			if(register != null && register.getId().equals(userId)) {
-				register2 = register;
+				return Optional.of(register);	//We use Optional.of() only when we are sure that our program is gonna return something
 			}
 
 		}
+		return Optional.empty();
+		
+//		Register register2 = null;
+//		for (Register register : arrayList) {
+//			if(register != null && register.getId().equals(userId)) {
+//				register2 = register;
+//			}
+//
+//		}
 		
 		//If register2 is holding null it will act like an empty 
 		//If register2 is holding object it will act like of
-		return Optional.ofNullable(register2);
+		//return Optional.ofNullable(register2);
 	}
 
 	@Override
