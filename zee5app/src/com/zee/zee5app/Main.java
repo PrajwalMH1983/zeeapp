@@ -1,5 +1,7 @@
 package com.zee.zee5app;
 
+import java.util.Optional;
+
 import com.zee.zee5app.dto.Login;
 import com.zee.zee5app.dto.Movie;
 import com.zee.zee5app.dto.Register;
@@ -10,6 +12,8 @@ import com.zee.zee5app.dto.service.SubscriptionService;
 import com.zee.zee5app.dto.service.UserService;
 import com.zee.zee5app.dto.service.UserService2;
 import com.zee.zee5app.dto.service.impl.UserServiceImpl;
+import com.zee.zee5app.exception.InvalidIdLengthException;
+import com.zee.zee5app.exception.InvalidNameException;
 
 public class Main {
 
@@ -28,10 +32,22 @@ public class Main {
 		//Register() : constructor ===> Implicit Default constructor cuz we dont have any constructors in Register 
 		//new Register() ==>  is the complete object being created
 		
-		register.setFirstName("Prajwal");
-		register.setLastName("Hardekar");
+		try {
+			register.setFirstName("Prajwal");
+			register.setLastName("Hardekar");
+		} catch (InvalidNameException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
 		register.setEmail("hardpraj@gmail.com");
 		register.setPassword("Hello1234");
+		try {
+			register.setId("pmh001");
+		} catch (InvalidIdLengthException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		login.setUserName("Prajwal");
 		login.setPassword("Hello1234");
@@ -56,16 +72,36 @@ public class Main {
 		//Main is consuming the service right away 
 		
 			Register register2 = new Register();
-			register2.setId("pmh00" + i);
-			register2.setFirstName("Prajwal " + i);
-			register2.setLastName("Hardekar " + i);
+			try {
+				register2.setId("pmh00" + i);
+				register2.setFirstName("Prajwal " + i);
+				register2.setLastName("Hardekar " + i);
+			} catch (InvalidIdLengthException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (InvalidNameException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			register2.setPassword("hello1234");
 			String result = service.addUser(register2);
 			System.out.println(result);
 		}
 		
-		Register register2 = service.getUserById("pmh001");
+		Optional<Register> register2 = service.getUserById("pmh001");
 		System.out.println(register2 != null);
+		
+		Optional<Register> optional =  service.getUserById("pmh001");
+		
+		if(optional.isPresent()) {
+			System.out.println("Get User by Id :" + optional.get()); 
+		} else {
+			System.out.println("Id not found");
+		} 
+		
+		
 		
 		for (Register register3 : service.getUsers()) {
 			if(register3 != null)
@@ -96,6 +132,8 @@ public class Main {
 		
 		//2. Creation of references is valid
 		//UserRepository3 repository = null;
+		
+		
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.zee.zee5app.dto.service.impl;
 
+import java.util.Optional;
+
 import com.zee.zee5app.dto.Register;
 import com.zee.zee5app.dto.repository.UserRepository3;
 import com.zee.zee5app.dto.repository.impl.UserRepositoryImpl;
@@ -39,9 +41,10 @@ public class UserServiceImpl implements UserService2 {
 	}
 
 	@Override
-	public Register getUserById(String userId) {
+	public Optional<Register> getUserById(String userId) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return userRepository.getUserById(userId);
 	}
 
 	@Override

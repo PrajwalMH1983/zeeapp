@@ -1,11 +1,13 @@
 package com.zee.zee5app.dto.repository;
 
+import java.util.Optional;
+
 import com.zee.zee5app.dto.Register;
 
 public interface UserRepository3 {
 	public String addUser(Register register);
 	public String updateUser(String userId , Register register);
-	public Register getUserById(String userId);
+	public Optional<Register> getUserById(String userId);
 	public Register[] getUsers();
 	public String deleteUserById(String userId);
 }
