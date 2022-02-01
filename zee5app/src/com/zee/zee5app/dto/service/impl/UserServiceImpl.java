@@ -1,29 +1,31 @@
 package com.zee.zee5app.dto.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Register;
-import com.zee.zee5app.dto.repository.UserRepository3;
+import com.zee.zee5app.dto.repository.UserRepository;
 import com.zee.zee5app.dto.repository.impl.UserRepositoryImpl;
-import com.zee.zee5app.dto.service.UserService2;
+import com.zee.zee5app.dto.service.UserService;
+import com.zee.zee5app.exception.IdNotFoundException;
 
-public class UserServiceImpl implements UserService2 {
+public class UserServiceImpl implements UserService {
 
 	
 	private UserServiceImpl() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static UserService2 service;
+	private static UserService service;
 	
-	public static UserService2 getInstance() {
+	public static UserService getInstance() {
 		if(service == null)
 			service = new UserServiceImpl();
 		
 		return service;
 	}
 	
-	UserRepository3 userRepository = UserRepositoryImpl.getInstance();
+	UserRepository userRepository = UserRepositoryImpl.getInstance();
 	
 	//UserRepositoryImpl userRepositoryImpl = new UserRepositoryImpl();
 	
@@ -35,13 +37,13 @@ public class UserServiceImpl implements UserService2 {
 	}
 
 	@Override
-	public String updateUser(String userId, Register register) {
+	public String updateUser(String userId, Register register) throws IdNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		return userRepository.updateUser(userId, register);
 	}
 
 	@Override
-	public Optional<Register> getUserById(String userId) {
+	public Optional<Register> getUserById(String userId) throws IdNotFoundException {
 		// TODO Auto-generated method stub
 		
 		return userRepository.getUserById(userId);
@@ -50,13 +52,19 @@ public class UserServiceImpl implements UserService2 {
 	@Override
 	public Register[] getAllUsers() {
 		// TODO Auto-generated method stub
-		return userRepository.getUsers();
+		return userRepository.getAllUsers();
 	}
 
 	@Override
-	public String deleteUserById(String userId) {
+	public String deleteUserById(String userId) throws IdNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		return userRepository.deleteUserById(userId);
+	}
+
+	@Override
+	public List<Register> getAllUsersDetails() {
+		// TODO Auto-generated method stub
+		return userRepository.getAllUsersDetails();
 	}
 
 }

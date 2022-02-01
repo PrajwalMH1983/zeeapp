@@ -1,30 +1,39 @@
 package com.zee.zee5app;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Login;
 import com.zee.zee5app.dto.Movie;
 import com.zee.zee5app.dto.Register;
-import com.zee.zee5app.dto.repository.UserRepository3;
+import com.zee.zee5app.dto.Series;
+import com.zee.zee5app.dto.Subscription;
+import com.zee.zee5app.dto.repository.UserRepository;
 import com.zee.zee5app.dto.service.MovieService;
 import com.zee.zee5app.dto.service.SeriesService;
 import com.zee.zee5app.dto.service.SubscriptionService;
 import com.zee.zee5app.dto.service.UserService;
 import com.zee.zee5app.dto.service.UserService2;
+import com.zee.zee5app.dto.service.impl.MovieServiceImpl;
+import com.zee.zee5app.dto.service.impl.SeriesServiceImpl;
+import com.zee.zee5app.dto.service.impl.SubscriptionServiceImpl;
 import com.zee.zee5app.dto.service.impl.UserServiceImpl;
+import com.zee.zee5app.exception.IdNotFoundException;
+import com.zee.zee5app.exception.InvalidAmountException;
+import com.zee.zee5app.exception.InvalidEmailException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.exception.InvalidNameException;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException, InvalidAmountException {
 		// TODO Auto-generated method stub
 		Register register = new Register();
 		Login login = new Login();
-		MovieService movieService = MovieService.getInstance();
-		SeriesService seriesService = SeriesService.getInstance();
-		SubscriptionService subService = SubscriptionService.getInstance();
-		UserService2 service = UserServiceImpl.getInstance();
+		MovieService movieService = MovieServiceImpl.getInstance();
+		SeriesService seriesService = SeriesServiceImpl.getInstance();
+		SubscriptionService subService = SubscriptionServiceImpl.getInstance();
+		UserService service = UserServiceImpl.getInstance();
 		
 		//Register : class name
 		//register : is a reference which will refer your object 
@@ -48,27 +57,25 @@ public class Main {
 		}
 		
 		register.setEmail("hardpraj@gmail.com");
+		register.setPassword("Hello1234");
+		
 		String ans = service.addUser(register);
 		
-		System.out.println(ans + "checkpoint1");
+		System.out.println(ans + " checkpoint1");
 		
-		register.setPassword("Hello1234");
-		try {
-			register.setId("pmh001");
-		} catch (InvalidIdLengthException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		System.out.println(register.toString());
+		
+		
 		
 		login.setUserName("Prajwal");
 		login.setPassword("Hello1234");
 		
-		System.out.println(register);
+		//System.out.println(register);
 		//Whenever you will print the reference 
 		//It will call toString() method
-		System.out.println(register.toString());
 		
-		System.out.println(register.getEmail());
+		
+		//System.out.println(register.getEmail());
 		
 		System.out.println(login);
 		System.out.println(login.getUserName());
@@ -87,6 +94,7 @@ public class Main {
 				register2.setId("pmh00" + i);
 				register2.setFirstName("Prajwal " + i);
 				register2.setLastName("Hardekar " + i);
+				register2.setEmail("hardprajwal" + i + "@gmail.com");
 				
 			} catch (InvalidIdLengthException e) {
 				// TODO Auto-generated catch block
@@ -100,50 +108,243 @@ public class Main {
 			register2.setPassword("hello1234");
 			String result = service.addUser(register2);
 			System.out.println(result);
+			
+			
 		}
+		
+		
+		
 		//service.addUser(register);
 		Optional<Register> register2 = service.getUserById("pmh001");
-		System.out.println(register2 != null);
 		
-		Optional<Register> optional =  service.getUserById("pmh001");
+		//System.out.println(register2 != null);
+		for (int j = 1; j <= 15; j++) {
+			
+			Optional<Register> optional;
+			try {
+				optional =  service.getUserById("pmh00" + j);
+				if(optional.isPresent()) {
+					System.out.println("Get User by Id :" + optional.get()); 
+				} else {
+					System.out.println("Id not found");
+				} 
+			} catch (IdNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
 		
-		if(optional.isPresent()) {
-			System.out.println("Get User by Id :" + optional.get()); 
-		} else {
-			System.out.println("Id not found");
-		} 
+		service.getAllUsersDetails().forEach(e->System.out.println(e));
+		
+		
+//		if(optional.isPresent()) {
+//			System.out.println("Get User by Id :" + optional.get()); 
+//		} else {
+//			System.out.println("Id not found");
+//		} 
 		
 		
 		
-		for (Register register3 : service.getAllUsers()) {
-			if(register3 != null)
-				System.out.println(register3);
+//		for (Register register3 : service.getAllUsers()) { 
+//			if(register3 != null)
+//				System.out.println(register3);
+//		}
+		
+		
+		String res;
+		
+		//============ Update User ==========
+		try {
+			res = service.updateUser("pmh001", register);
+			System.out.println("Update : " + res);
+		} catch (IdNotFoundException e2) {
+			// TODO: handle exception
+			e2.printStackTrace();
 		}
 		
-		Movie movie = new Movie();
 		
-		movie.setMovieId("1");
-		movie.setMovieGenre("Thriller");
-		movie.setMovieLanguage("Kannada");
-		movie.setMovieLength(180);
-		movie.setMovieName("Kavaludari");
-		movie.setMovieReleaseDate("01/01/2018");
-		movie.setMovieTrailer("https://youtube.com");
+		//======== Delete User ============
+		try {
+			res = service.deleteUserById("pmh003");
+			System.out.println("Deleted : " + res);
+		} catch (Exception e2) {
+			// TODO: handle exception
+			e2.printStackTrace();
+		}
 		
 		
-		String res = movieService.addMovie(movie);
 		
-		String res1 = movieService.deleteMovie("1");
+		//============= MOVIE ===========
 		
-		System.out.println(movie);
-		System.out.println(res);
-		System.out.println(res1);
 		
-		//1. For Interfaces we can't create objects
-		//UserRepository3 repository = new UserRepository3();
+		System.out.println("\n THIS IS FOR MOVIES \n");
+		MovieService service1 = MovieServiceImpl.getInstance();
+		
+		String[] cast = new String[] {"Yash" , "Sudeep" , "Dhananjaya"};
+		
+		//Movie movie = new Movie("KAN6969", "Kavaludari", "Thriller", "01/01/2018", "https://youtube.com", "Kannada", 180.2f, cast);
+		
+		
+		for(int i=1;i<=10;++i) {
+			Movie movie = new Movie();
+			
+			//MovieId 
+			try {
+				movie.setMovieId("MOV00" + i);
+			} catch (InvalidIdLengthException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			//MovieName
+			try {
+				movie.setMovieName("Kannada " + i);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			movie.setMovieGenre("Thriller");
+			movie.setMovieLanguage("Kannada");
+			movie.setCast(cast);
+			movie.setMovieLength(180.2f);
+			movie.setMovieReleaseDate("11/12/2021");
+			movie.setMovieTrailer(null);
+			String result = service1.addMovie(movie);
+			
+		}
+		
+		
+		for (Movie movie : service1.getAllMovies()) {
+			if(movie != null) {
+				System.out.println(movie);
+			}
+		}
+		
+		
+		//Getting Movie By Id
+		try {
+			Optional<Movie> optional = service1.getMovieById("MOV002");
+			System.out.println(optional);
+		} catch (IdNotFoundException e) {
+			// TODO: handle exception
+			System.out.println("MovieId Not Found");
+			e.printStackTrace();
+		}
+		
+		//Deleting Movie
+		try {
+			service1.deleteMovie("MOV001");
+		} catch (IdNotFoundException e) {
+			// TODO: handle exception
+		}
+		
+		
+		
+		// ============= SERIES ==============
+		System.out.println("\n THIS IS FOR SERIES \n");
+		
+		SeriesService service2 = SeriesServiceImpl.getInstance();
+		for(int i=1;i<=10;++i) {
+			Series series = new Series();
+			
+			series.setSeriesId("ser00" + i);
+			series.setSeriesName("Malgudi Days " + i);
+			series.setSeriesGenre("Thriller");
+			series.setSeriesLanguage("Kannada");
+			series.setSeriesReleaseDate("03/08/2021");
+			series.setSeriesSeasons(i);
+			series.setSeriesTotalEpisodes(i + i);
+			String result = service2.addSeries(series);
+		}
+		
+		for (Series series : service2.getAllSeries()) {
+			if(series != null)
+				System.out.println(series);
+		}
+		
+		try {
+			Optional<Series> optional = service2.getSeriesById("ser001");
+			System.out.println(optional);
+		} catch (IdNotFoundException e) {
+			// TODO: handle exception
+			System.out.println("SeriesId not Found!!");
+			e.printStackTrace();
+		}
+		
+		try {
+			service2.deleteSeries("ser001");
+		} catch (IdNotFoundException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		System.out.println("\n == Before Updating the series ===");
+		
+		Series series3 = new Series("Malgudi Days 1" , "ser001" ,"Thriller" , "03/08/2021" , "Kannada" , 1 , 2);
+		
+		for (Series series : service2.getAllSeries()) {
+			if(series != null)
+				System.out.println(series);
+		}
+		
+		
+		
+		//====== SUBSCRIPTION =====
+		
+		SubscriptionService service3 = SubscriptionServiceImpl.getInstance();
+		
+		System.out.println("\n THIS IS FOR SUBSCRIPTION \n");
+		
+		for(int i=1;i<=5;++i) {
+			Subscription subscription = new Subscription();
+			
+			subscription.setSubId("sub00" + i);
+			subscription.setDateOfPurchase(null);
+			subscription.setSubAutoRenewal(null);
+			subscription.setSubExpiry(null);
+			subscription.setSubAmount(1500);
+			subscription.setSubPaymentMode(null);
+			subscription.setSubCountry(null);
+			subscription.setSubStatus(null);
+			subscription.setSubType(null);
+			String result = service3.addSubscription(subscription);
+		}
+		
+		
+		for (Subscription subscription : service3.getAllSubscriptions()) {
+			if(subscription != null)
+				System.out.println(subscription);
+		}
+		
+		
+		try {
+			Optional<Subscription> optional = service3.getSubscriptionById("sub001");
+			System.out.println(optional);
+		} catch (IdNotFoundException e) {
+			// TODO: handle exception
+			System.out.println("Id Not Found");
+			e.printStackTrace();
+		}
+		
+		
+		try {
+			service3.deleteSubscription("sub001");
+		} catch (IdNotFoundException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		
 		
 		//2. Creation of references is valid
 		//UserRepository3 repository = null;
+		
+		
+		//Subscription ----> ArrayList
+		//Movies ---> HashSet
+		//Series ----> TreeSet
 		
 		
 	}

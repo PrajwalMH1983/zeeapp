@@ -13,7 +13,10 @@ import lombok.Setter;
 // Because of this @Data it implicitly manages all the setters and getters
 @Data
 @EqualsAndHashCode
-public class Register {
+//Why Comparable ?
+//cuz comparable interface is providing compareTo method and this is responsible for
+//performing comparison which is used for maintaining in sorted order
+public class Register implements Comparable<Register>{
 	
 	//It should have min length of 6.
 	//We have to write a code to validate the length and
@@ -92,6 +95,15 @@ public class Register {
 	@Override
 	public int hashCode() {
 		return Objects.hash(email, firstName, id, lastName, password);
+	}
+
+	@Override
+	public int compareTo(Register o) {
+		// TODO Auto-generated method stub
+		//return this.id.compareTo(o.getId());
+		
+		//For reverse order
+		return o.id.compareTo(this.getId());
 	}
 	
 	

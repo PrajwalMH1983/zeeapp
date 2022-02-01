@@ -1,44 +1,16 @@
 package com.zee.zee5app.dto.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.zee.zee5app.dto.Movie;
-import com.zee.zee5app.dto.repository.MovieRepository;
+import com.zee.zee5app.exception.IdNotFoundException;
 
-import lombok.Data;
-
-@Data
-
-public class MovieService {
-	private MovieRepository repository = MovieRepository.getInstance();
-
-	private MovieService() {
-		
-	}
+public interface MovieService {
+	public String addMovie(Movie movie);
+	public String deleteMovie(String movieId) throws IdNotFoundException;
+	public String updateMovie(String movieId , Movie movie) throws IdNotFoundException;
+	public Optional<Movie> getMovieById(String movieId) throws IdNotFoundException;
+	public List<Movie> getAllMovies();
 	
-	static MovieService service = null;
-	
-	public static MovieService getInstance() {
-		if(service == null)
-			service = new MovieService();
-		return service;
-	}
-	
-	public String addMovie(Movie movie) {
-		return this.repository.addMovie(movie);
-	}
-	
-	public Movie getMovieById(String movieId) {
-		return repository.getMovieById(movieId);
-	}
-	
-	public Movie[] getMovies() {
-		return repository.getMovies();
-	}
-	
-	public String updateMovie(String movieId , Movie movie) {
-		return repository.updateMovie(movieId, movie);
-	}
-	
-	public String deleteMovie(String movieId) {
-		return repository.deleteMovie(movieId);
-	}
 }
