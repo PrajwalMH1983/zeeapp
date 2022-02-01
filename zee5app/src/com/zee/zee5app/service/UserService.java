@@ -1,4 +1,4 @@
-package com.zee.zee5app.dto.service;
+package com.zee.zee5app.service;
 
 import java.util.List;
 import java.util.Optional;

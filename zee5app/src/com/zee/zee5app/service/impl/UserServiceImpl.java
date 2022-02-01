@@ -1,13 +1,13 @@
-package com.zee.zee5app.dto.service.impl;
+package com.zee.zee5app.service.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Register;
-import com.zee.zee5app.dto.repository.UserRepository;
-import com.zee.zee5app.dto.repository.impl.UserRepositoryImpl;
-import com.zee.zee5app.dto.service.UserService;
 import com.zee.zee5app.exception.IdNotFoundException;
+import com.zee.zee5app.repository.UserRepository;
+import com.zee.zee5app.repository.impl.UserRepositoryImpl;
+import com.zee.zee5app.service.UserService;
 
 public class UserServiceImpl implements UserService {
 

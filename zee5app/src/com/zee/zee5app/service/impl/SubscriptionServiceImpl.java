@@ -1,13 +1,13 @@
-package com.zee.zee5app.dto.service.impl;
+package com.zee.zee5app.service.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Subscription;
-import com.zee.zee5app.dto.repository.SubscriptionRepository;
-import com.zee.zee5app.dto.repository.impl.SubscriptionRepositoryImpl;
-import com.zee.zee5app.dto.service.SubscriptionService;
 import com.zee.zee5app.exception.IdNotFoundException;
+import com.zee.zee5app.repository.SubscriptionRepository;
+import com.zee.zee5app.repository.impl.SubscriptionRepositoryImpl;
+import com.zee.zee5app.service.SubscriptionService;
 
 public class SubscriptionServiceImpl implements SubscriptionService {
 

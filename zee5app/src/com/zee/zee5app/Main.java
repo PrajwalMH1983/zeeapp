@@ -8,21 +8,21 @@ import com.zee.zee5app.dto.Movie;
 import com.zee.zee5app.dto.Register;
 import com.zee.zee5app.dto.Series;
 import com.zee.zee5app.dto.Subscription;
-import com.zee.zee5app.dto.repository.UserRepository;
-import com.zee.zee5app.dto.service.MovieService;
-import com.zee.zee5app.dto.service.SeriesService;
-import com.zee.zee5app.dto.service.SubscriptionService;
-import com.zee.zee5app.dto.service.UserService;
-import com.zee.zee5app.dto.service.UserService2;
-import com.zee.zee5app.dto.service.impl.MovieServiceImpl;
-import com.zee.zee5app.dto.service.impl.SeriesServiceImpl;
-import com.zee.zee5app.dto.service.impl.SubscriptionServiceImpl;
-import com.zee.zee5app.dto.service.impl.UserServiceImpl;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidAmountException;
 import com.zee.zee5app.exception.InvalidEmailException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.exception.InvalidNameException;
+import com.zee.zee5app.repository.UserRepository;
+import com.zee.zee5app.service.MovieService;
+import com.zee.zee5app.service.SeriesService;
+import com.zee.zee5app.service.SubscriptionService;
+import com.zee.zee5app.service.UserService;
+import com.zee.zee5app.service.UserService2;
+import com.zee.zee5app.service.impl.MovieServiceImpl;
+import com.zee.zee5app.service.impl.SeriesServiceImpl;
+import com.zee.zee5app.service.impl.SubscriptionServiceImpl;
+import com.zee.zee5app.service.impl.UserServiceImpl;
 
 public class Main {
 

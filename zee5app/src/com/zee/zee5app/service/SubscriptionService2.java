@@ -1,11 +1,11 @@
-package com.zee.zee5app.dto.service;
+package com.zee.zee5app.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Subscription;
-import com.zee.zee5app.dto.repository.SubscriptionRepository;
-import com.zee.zee5app.dto.repository.SubscriptionRepository2;
+import com.zee.zee5app.repository.SubscriptionRepository;
+import com.zee.zee5app.repository.SubscriptionRepository2;
 
 public class SubscriptionService2 {
 	private SubscriptionRepository2 repository = SubscriptionRepository2.getInstance();

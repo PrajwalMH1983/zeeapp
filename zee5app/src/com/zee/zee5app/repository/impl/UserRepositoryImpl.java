@@ -1,4 +1,4 @@
-package com.zee.zee5app.dto.repository.impl;
+package com.zee.zee5app.repository.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,8 +11,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import com.zee.zee5app.dto.Register;
-import com.zee.zee5app.dto.repository.UserRepository;
 import com.zee.zee5app.exception.IdNotFoundException;
+import com.zee.zee5app.repository.UserRepository;
 
 public class UserRepositoryImpl implements UserRepository {
 

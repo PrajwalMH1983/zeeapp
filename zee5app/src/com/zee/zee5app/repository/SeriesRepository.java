@@ -1,4 +1,4 @@
-package com.zee.zee5app.dto.repository;
+package com.zee.zee5app.repository;
 
 import java.util.List;
 import java.util.Optional;

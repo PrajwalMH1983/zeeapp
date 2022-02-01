@@ -1,13 +1,13 @@
-package com.zee.zee5app.dto.service.impl;
+package com.zee.zee5app.service.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Series;
-import com.zee.zee5app.dto.repository.SeriesRepository;
-import com.zee.zee5app.dto.repository.impl.SeriesRepositoryImpl;
-import com.zee.zee5app.dto.service.SeriesService;
 import com.zee.zee5app.exception.IdNotFoundException;
+import com.zee.zee5app.repository.SeriesRepository;
+import com.zee.zee5app.repository.impl.SeriesRepositoryImpl;
+import com.zee.zee5app.service.SeriesService;
 
 public class SeriesServiceImpl implements SeriesService {
 

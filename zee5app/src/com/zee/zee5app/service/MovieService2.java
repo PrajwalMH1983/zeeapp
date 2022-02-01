@@ -1,10 +1,9 @@
-package com.zee.zee5app.dto.service;
+package com.zee.zee5app.service;
 
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Movie;
-
-import com.zee.zee5app.dto.repository.MovieRepository2;
+import com.zee.zee5app.repository.MovieRepository2;
 
 import lombok.Data;
 

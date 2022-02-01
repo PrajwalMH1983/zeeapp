@@ -1,4 +1,4 @@
-package com.zee.zee5app.dto.repository.impl;
+package com.zee.zee5app.repository.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,8 +8,8 @@ import java.util.TreeSet;
 
 import com.zee.zee5app.dto.Movie;
 import com.zee.zee5app.dto.Series;
-import com.zee.zee5app.dto.repository.SeriesRepository;
 import com.zee.zee5app.exception.IdNotFoundException;
+import com.zee.zee5app.repository.SeriesRepository;
 
 public class SeriesRepositoryImpl implements SeriesRepository {
 	

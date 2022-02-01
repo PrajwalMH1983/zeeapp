@@ -1,14 +1,11 @@
-package com.zee.zee5app.dto.service;
+package com.zee.zee5app.service;
 
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Register;
-import com.zee.zee5app.dto.repository.UserRepository;
-//Service objects are used to just call the services inside the main method
-//can we do this using 1 object
-//To fix this problem -- > they provided a solution called singleton design pattern --> one object for the specific type
-import com.zee.zee5app.dto.repository.impl.UserRepositoryImpl;
 import com.zee.zee5app.exception.IdNotFoundException;
+import com.zee.zee5app.repository.UserRepository;
+import com.zee.zee5app.repository.impl.UserRepositoryImpl;
 
 public class UserService2 {
 	private UserRepository repository = UserRepositoryImpl.getInstance();

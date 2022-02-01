@@ -1,4 +1,4 @@
-package com.zee.zee5app.dto.service;
+package com.zee.zee5app.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.zee.zee5app.dto.Subscription;
 import com.zee.zee5app.exception.IdNotFoundException;
 
-public interface SubscriptionService {
+public interface SubscriptionRepository {
 	public String addSubscription(Subscription subscription);
 	public String deleteSubscription(String subId) throws IdNotFoundException;
 	public String updateSubscription(String subId , Subscription subscription) throws IdNotFoundException;

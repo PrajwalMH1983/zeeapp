@@ -1,11 +1,11 @@
-package com.zee.zee5app.dto.service;
+package com.zee.zee5app.service;
 
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Series;
-import com.zee.zee5app.dto.repository.SeriesRepository;
-import com.zee.zee5app.dto.repository.SeriesRepository2;
-import com.zee.zee5app.dto.repository.impl.SeriesRepositoryImpl;
+import com.zee.zee5app.repository.SeriesRepository;
+import com.zee.zee5app.repository.SeriesRepository2;
+import com.zee.zee5app.repository.impl.SeriesRepositoryImpl;
 
 import lombok.Data;
 

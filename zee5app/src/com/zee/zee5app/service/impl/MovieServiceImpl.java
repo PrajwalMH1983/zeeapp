@@ -1,13 +1,13 @@
-package com.zee.zee5app.dto.service.impl;
+package com.zee.zee5app.service.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Movie;
-import com.zee.zee5app.dto.repository.MovieRepository;
-import com.zee.zee5app.dto.repository.impl.MovieRepositoryImpl;
-import com.zee.zee5app.dto.service.MovieService;
 import com.zee.zee5app.exception.IdNotFoundException;
+import com.zee.zee5app.repository.MovieRepository;
+import com.zee.zee5app.repository.impl.MovieRepositoryImpl;
+import com.zee.zee5app.service.MovieService;
 
 public class MovieServiceImpl implements MovieService {
 
