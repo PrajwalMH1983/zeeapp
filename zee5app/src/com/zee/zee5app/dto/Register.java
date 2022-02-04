@@ -1,5 +1,6 @@
 package com.zee.zee5app.dto;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import com.zee.zee5app.exception.InvalidIdLengthException;
@@ -31,6 +32,7 @@ public class Register implements Comparable<Register>{
 	private String lastName;
 	private String email;
 	private String password;
+	private BigDecimal contactNumber;
 	
 	public Register()
 	{
@@ -39,6 +41,18 @@ public class Register implements Comparable<Register>{
 		//then its better to introduce EDC or Public constructor or both as per the needi
 		System.out.println();
 	}
+	
+	public Register(String id, String firstName, String lastName, String email, String password
+			) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		
+	}
+	
 	
 	public void setId(String id) throws InvalidIdLengthException {
 		//throws : it will provide the list of exceptions may be raised 
@@ -69,15 +83,6 @@ public class Register implements Comparable<Register>{
 		this.lastName = lastName;
 	}
 
-	public Register(String id, String firstName, String lastName, String email, String password) throws InvalidIdLengthException, InvalidNameException {
-		super();
-		this.setId(id);
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
-		this.email = email;
-		this.password = password;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -105,6 +110,11 @@ public class Register implements Comparable<Register>{
 		//For reverse order
 		return o.id.compareTo(this.getId());
 	}
+
+
+
+
+	
 	
 	
 	//Private stuff will be only accessible inside the class

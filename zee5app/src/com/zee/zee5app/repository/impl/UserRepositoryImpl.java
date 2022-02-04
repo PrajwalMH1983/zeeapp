@@ -15,6 +15,14 @@ import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.repository.UserRepository;
 
 public class UserRepositoryImpl implements UserRepository {
+	
+private static UserRepository repository;
+	
+	public static UserRepository getInstance() {
+		if(repository == null)
+			repository = new UserRepositoryImpl();
+		return repository;
+	}
 
 	//We need singleton object for Repository
 	//As list is parent for linked list
@@ -38,13 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
 		
 	}
 	
-	private static UserRepository repository;
 	
-	public static UserRepository getInstance() {
-		if(repository == null)
-			repository = new UserRepositoryImpl();
-		return repository;
-	}
 	@Override
 	public String addUser(Register register) {
 		// TODO Auto-generated method stub
