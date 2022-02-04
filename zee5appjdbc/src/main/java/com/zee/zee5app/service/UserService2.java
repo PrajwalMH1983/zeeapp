@@ -14,6 +14,7 @@ public class UserService2 {
 	private UserRepository repository = UserRepositoryImpl.getInstance();
 	//Service is consuming the repository
 	
+
 	private UserService2() throws IOException{
 		// TODO Auto-generated constructor stub
 	}
@@ -56,7 +57,7 @@ public class UserService2 {
 		return this.repository.getUserById(id);
 	}
 	
-	public Register[] getAllUsers() {
+	public Register[] getAllUsers() throws InvalidIdLengthException, InvalidNameException {
 		return this.repository.getAllUsers();
 		
 	}

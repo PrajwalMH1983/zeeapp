@@ -13,15 +13,18 @@ public class DBUtils {
 	
 	//This class is used to get the DB connection and to close the DB connection
 	//Singleton DP
-	private static DBUtils dbutils;
+	public static DBUtils dbUtils = null;
+	static Properties properties = null;
+	Connection connection = null;
 	public static DBUtils getInstance() throws IOException {
-		if(dbutils == null)
-			dbutils = new DBUtils();
-		return dbutils;
+		if(dbUtils == null)
+			dbUtils = new DBUtils();
+		return dbUtils;
 	}
 	
-	private DBUtils() throws IOException{
+	public DBUtils() throws IOException{
 		// TODO Auto-generated constructor stub
+		Properties properties = loadProperties();
 	}
 	
 	//We did that throws IOException because 
@@ -33,25 +36,27 @@ public class DBUtils {
 	public Connection getConnection() {
 		//write stuff to establish connection with the DB
 		
-		Connection connection = null;
+		//Connection connection = null;
 		
 		try {
 			properties = loadProperties();
+			if(connection == null || connection.isClosed()) {
+				connection = DriverManager.getConnection
+				(properties.getProperty("jdbc.url"),
+						properties.getProperty("jdbc.username") , 
+						properties.getProperty("jdbc.password"));
+				
+				
+				System.out.println(properties);
+				connection.setAutoCommit(false);
+			}
 			
-			connection = DriverManager.getConnection
-			(properties.getProperty("jdbc.url"),
-					properties.getProperty("jdbc.username") , 
-					properties.getProperty("jdbc.password"));
-			
-			
-			System.out.println(properties);
-			return connection;
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return null;
+		return connection;
 	}
 	
 	
@@ -71,7 +76,7 @@ public class DBUtils {
 	
 	
 	
-	Properties properties = loadProperties();
+//	private Properties properties;
 	private Properties loadProperties() throws IOException {
 		//read the properties file
 		//This code does not read the input gives us Null pointer exception

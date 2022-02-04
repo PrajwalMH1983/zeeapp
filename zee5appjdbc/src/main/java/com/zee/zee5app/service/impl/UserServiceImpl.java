@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 		return service;
 	}
 	
-	UserRepository userRepository = UserRepositoryImpl.getInstance();
+	private UserRepository userRepository = UserRepositoryImpl.getInstance();
 	
 	//UserRepositoryImpl userRepositoryImpl = new UserRepositoryImpl();
 	
@@ -36,38 +36,40 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String addUser(Register register) {
 		// TODO Auto-generated method stub
-		return userRepository.addUser(register);
+		return this.userRepository.addUser(register);
 	}
 
 	@Override
 	public String updateUser(String userId, Register register) throws IdNotFoundException {
 		// TODO Auto-generated method stub
-		return userRepository.updateUser(userId, register);
+		return this.userRepository.updateUser(userId, register);
 	}
 
 	@Override
 	public Optional<Register> getUserById(String userId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException {
 		// TODO Auto-generated method stub
 		
-		return userRepository.getUserById(userId);
+		return this.userRepository.getUserById(userId);
 	}
 
 	@Override
-	public Register[] getAllUsers() {
+	public Register[] getAllUsers() throws InvalidIdLengthException, InvalidNameException {
 		// TODO Auto-generated method stub
-		return userRepository.getAllUsers();
+		return this.userRepository.getAllUsers();
 	}
 
 	@Override
 	public String deleteUserById(String userId) throws IdNotFoundException {
 		// TODO Auto-generated method stub
-		return userRepository.deleteUserById(userId);
+		return this.userRepository.deleteUserById(userId);
 	}
 
 	@Override
-	public List<Register> getAllUsersDetails() {
+	public Optional<List<Register>> getAllUsersDetails() throws InvalidIdLengthException, InvalidNameException {
 		// TODO Auto-generated method stub
-		return userRepository.getAllUsersDetails();
+		return this.userRepository.getAllUsersDetails();
 	}
+
+	
 
 }

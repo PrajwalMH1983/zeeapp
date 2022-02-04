@@ -15,25 +15,36 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.management.loading.PrivateClassLoader;
+import javax.sql.DataSource;
+
+import com.zee.zee5app.dto.Login;
 import com.zee.zee5app.dto.Register;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.exception.InvalidNameException;
+import com.zee.zee5app.repository.LoginRepository;
 import com.zee.zee5app.repository.UserRepository;
 import com.zee.zee5app.utils.DBUtils;
+import com.zee.zee5app.utils.PasswordUtils;
 
 public class UserRepositoryImpl implements UserRepository {
 	
+	//DBUtils dbUtils = DBUtils.getInstance();
+	LoginRepository loginRepository = LoginRepositoryImpl.getInstance();
+	
 	DBUtils dbUtils = DBUtils.getInstance();
+	
+	private static UserRepositoryImpl repository;
 	
 	private UserRepositoryImpl() throws IOException{
 		
 	}
 	
 	
-	private static UserRepository repository;
+	//private static UserRepository repository;
 	
-	public static UserRepository getInstance() throws IOException {
+	public static UserRepositoryImpl getInstance() throws IOException {
 		if(repository == null)
 			repository = new UserRepositoryImpl();
 		return repository;
@@ -50,7 +61,7 @@ public class UserRepositoryImpl implements UserRepository {
 		
 		
 		//Add the user details to the table in DB
-		String insertStatement = "insert into register " 
+		String insertStatement = "insert into register" 
 				+ "(regId , firstName , lastName , email , contactNumber , password)" 
 				+ "values(? , ? , ? , ? , ? , ?)";
 		
@@ -60,6 +71,13 @@ public class UserRepositoryImpl implements UserRepository {
 		// we will use a (?)
 		//here we will provide the values against ? (placeholder)
 		//In both of the above situations data will be added at runtime itself
+		
+//		try {
+//			connection = dataSource.getConnection();
+//		} catch (SQLException e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
 		
 		connection = dbUtils.getConnection();
 		try {
@@ -71,19 +89,43 @@ public class UserRepositoryImpl implements UserRepository {
 			preparedStatement.setString(3, register.getLastName());
 			preparedStatement.setString(4, register.getEmail());
 			preparedStatement.setBigDecimal(5, register.getContactNumber());
-			preparedStatement.setString(6, register.getPassword());
+			String salt = PasswordUtils.getSalt(30);
+			String encryptedPassword = PasswordUtils.generateSecurePassword(register.getPassword(), salt);
+			preparedStatement.setString(6, encryptedPassword);
 			
 			//The number of rows affected by the DML statement
 			//1 : one row is inserted
 			int result = preparedStatement.executeUpdate();
-			if(result > 0)
-				return "Successful";
-			else
+			if(result > 0) {
+				//connection.commit();
+				Login login = new Login();
+				login.setUserName(register.getEmail());
+				login.setPassword(encryptedPassword);
+				login.setRegId(register.getId());
+				
+				String res = loginRepository.addCredentials(login);
+				if(res.equals("Successful")) {
+					//connection.commit();
+					return "Successful";
+				} else {
+					connection.rollback();
+					return "Failed";
+				}
+			}
+			else {
+				connection.rollback();
 				return "Failed";
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "Fail";
+			try {
+				connection.rollback();
+			} catch (SQLException e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+			return "Failed";
 		}
 		finally {
 			//Closure work is done in finally block
@@ -106,7 +148,12 @@ public class UserRepositoryImpl implements UserRepository {
 		ResultSet resultSet = null;
 		
 		String selecStatement = "select * from register where regId=?";
-		connection = dbUtils.getConnection();
+//		try {
+//			connection = dataSource.getConnection();
+//		} catch (SQLException e) {
+//			// TODO: handle exception
+//		}
+		
 		
 		try {
 			preparedStatement = connection.prepareStatement(selecStatement);
@@ -140,29 +187,138 @@ public class UserRepositoryImpl implements UserRepository {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			dbUtils.closeConnection(connection);
+		} 
+//		finally {
+//			dbUtils.closeConnection(connection);
+//		}
+		return Optional.empty();
+	}
+
+	
+	
+	
+	@Override
+	public Register[] getAllUsers() throws InvalidIdLengthException, InvalidNameException {
+		// TODO Auto-generated method stub
+		Optional<List<Register>> optional = getAllUsersDetails();
+		
+		if(optional.isEmpty()) {
+			return null;
+		} else {
+			List<Register> list = optional.get();
+			Register[] registers = new Register[list.size()];
+			return list.toArray(registers);
+		}
+	}
+
+	
+	
+	
+	@Override
+	public Optional<List<Register>> getAllUsersDetails() throws InvalidIdLengthException, InvalidNameException {
+		// TODO Auto-generated method stub
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		ArrayList<Register> arrayList = new ArrayList<>();
+		
+		String selecStatement = "select * from register";
+		connection = dbUtils.getConnection();
+		
+		
+		try {
+			preparedStatement = connection.prepareStatement(selecStatement);
+			//preparedStatement.setString(1, userId);
+			
+			//To retrieve the data
+			//ResultSet  will help u hold the complete result
+			//ResultSet object its a single one which is holding all the records
+			//so we need to to traverse it 
+			
+			resultSet = preparedStatement.executeQuery();
+			//We wont be using while cuz at max we would be getting 1 record so
+			while(resultSet.next()) {
+				//next method is used to traverse the resultSet
+				//initially it will be placed just above the 1st record
+				//when u will call 1st time RS will retrieve the 1st record
+				//and it will refer the 2nd one
+				//Now we have to collect the information and to collect this info
+				Register register = new Register();
+				register.setId(resultSet.getString("regId"));
+				register.setFirstName(resultSet.getString("firstName"));
+				register.setLastName(resultSet.getString("lastName"));
+				register.setEmail(resultSet.getString("email"));
+				register.setPassword(resultSet.getString("password"));
+				register.setContactNumber(resultSet.getBigDecimal("contactNumber"));
+				
+				arrayList.add(register);
+			}
+			return Optional.ofNullable(arrayList);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return Optional.empty();
 	}
 
-	@Override
-	public Register[] getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Register> getAllUsersDetails() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
+	
+	
+	
 	@Override
 	public String deleteUserById(String userId) throws IdNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		
+		//Add the user details to the table in DB
+		String deleteStatement = "delete from register where regId=?" ;
+		
+		//Placeholders --, prepared statement
+		
+		//We will concatenate the values in values spec
+		// we will use a (?)
+		//here we will provide the values against ? (placeholder)
+		//In both of the above situations data will be added at runtime itself
+		
+		connection = dbUtils.getConnection();
+		try {
+			preparedStatement = connection.prepareStatement(deleteStatement);
+			//We need to provide values against ? placeholder
+			//we are taking setString cuz regId is a string based column
+			preparedStatement.setString(1, userId);
+			
+			
+			//The number of rows affected by the DML statement
+			//1 : one row is inserted
+			int result = preparedStatement.executeUpdate();
+			//Gives us the number of rows deleted
+			if(result > 0) {
+				Register register = new Register();
+				String ans = loginRepository.deleteCredentials(register.getEmail());
+				if(ans == "Successful")
+					return "Successful";
+			}
+			else
+				return "Failed";
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "Failed";
+		}
+		finally {
+			//Closure work is done in finally block
+			//without fail we have to close the connection 
+			dbUtils.closeConnection(connection);
+		}
+		return "Failed";
 	}
+
+
 	
 	
 	

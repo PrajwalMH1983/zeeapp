@@ -3,6 +3,7 @@ package com.zee.zee5app;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import com.zee.zee5app.dto.Login;
@@ -344,7 +345,7 @@ public class Main {
 		
 		
 //		try {
-//			Register register4 = new Register("pmh0007", "Prajwal", "hardekar", "hard@gmail.com", "hello1234");
+//			Register register4 = new Register("pmh0009", "Prajwal", "hardekar", "hard@gmail.com", "hello1234");
 //			
 //			register4.setContactNumber(new BigDecimal("9090909090"));
 //			
@@ -359,24 +360,60 @@ public class Main {
 		
 		//=============================================
 		
+//		try {
+//			UserService service = UserServiceImpl.getInstance();
+//			Optional<Register> register = service.getUserById("pmh0001");
+//			System.out.println(register.get());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IdNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvalidIdLengthException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvalidNameException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
+		//============================================
+//		UserService service; 
+//		try {
+//			service = UserServiceImpl.getInstance();
+//			Optional<List<Register>> optional = service.getAllUsersDetails();
+//			
+//			if(optional.isEmpty()) {
+//				System.out.println("There are no records");
+//			} else {
+//				optional.get().forEach(e->System.out.println(e));
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvalidIdLengthException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvalidNameException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+		
+		
+		//=======================================================
 		try {
 			UserService service = UserServiceImpl.getInstance();
-			Optional<Register> register = service.getUserById("pmh0001");
-			System.out.println(register.get());
+			Register register = new Register("pmh0011", "Prajwal", "hardekar", "hard@gmail.com", "hello1234");
+			register.setContactNumber(new BigDecimal("8080808080"));
+			String res = service.addUser(register);
+			System.out.println(res);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IdNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidIdLengthException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidNameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
 		
 		
 		
