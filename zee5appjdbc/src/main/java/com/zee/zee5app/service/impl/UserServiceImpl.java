@@ -14,61 +14,111 @@ import com.zee.zee5app.service.UserService;
 
 public class UserServiceImpl implements UserService {
 
+private UserRepository userRepository = UserRepositoryImpl.getInstance();
 	
-	private UserServiceImpl() throws IOException{
+	private UserServiceImpl() throws IOException {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static UserService service;
-	
+	private static UserService userService;
 	public static UserService getInstance() throws IOException {
-		if(service == null)
-			service = new UserServiceImpl();
-		
-		return service;
+		if(userService==null)
+			userService = new UserServiceImpl();
+		return userService;
 	}
-	
-	private UserRepository userRepository = UserRepositoryImpl.getInstance();
-	
-	//UserRepositoryImpl userRepositoryImpl = new UserRepositoryImpl();
-	
 	
 	@Override
 	public String addUser(Register register) {
 		// TODO Auto-generated method stub
-		return this.userRepository.addUser(register);
+		return userRepository.addUser(register);
 	}
 
 	@Override
 	public String updateUser(String userId, Register register) throws IdNotFoundException {
 		// TODO Auto-generated method stub
-		return this.userRepository.updateUser(userId, register);
+		return userRepository.updateUser(userId, register);
 	}
 
 	@Override
-	public Optional<Register> getUserById(String userId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException {
+	public Optional<Register> getUserById(String userId)
+			throws IdNotFoundException, InvalidIdLengthException, InvalidNameException {
 		// TODO Auto-generated method stub
-		
-		return this.userRepository.getUserById(userId);
+		return userRepository.getUserById(userId);
 	}
 
 	@Override
 	public Register[] getAllUsers() throws InvalidIdLengthException, InvalidNameException {
 		// TODO Auto-generated method stub
-		return this.userRepository.getAllUsers();
-	}
-
-	@Override
-	public String deleteUserById(String userId) throws IdNotFoundException {
-		// TODO Auto-generated method stub
-		return this.userRepository.deleteUserById(userId);
+		return userRepository.getAllUsers();
 	}
 
 	@Override
 	public Optional<List<Register>> getAllUsersDetails() throws InvalidIdLengthException, InvalidNameException {
 		// TODO Auto-generated method stub
-		return this.userRepository.getAllUsersDetails();
+		return userRepository.getAllUsersDetails();
 	}
+
+	@Override
+	public String deleteUserById(String userId) throws IdNotFoundException {
+		// TODO Auto-generated method stub
+		return userRepository.deleteUserById(userId);
+	}
+
+	
+//	private UserServiceImpl() throws IOException{
+//		// TODO Auto-generated constructor stub
+//	}
+//	
+//	private static UserService service;
+//	
+//	public static UserService getInstance() throws IOException {
+//		if(service == null)
+//			service = new UserServiceImpl();
+//		
+//		return service;
+//	}
+//	
+//	private UserRepository userRepository = UserRepositoryImpl.getInstance();
+//	
+//	//UserRepositoryImpl userRepositoryImpl = new UserRepositoryImpl();
+//	
+//	
+//	@Override
+//	public String addUser(Register register) {
+//		// TODO Auto-generated method stub
+//		return this.userRepository.addUser(register);
+//	}
+//
+//	@Override
+//	public String updateUser(String userId, Register register) throws IdNotFoundException {
+//		// TODO Auto-generated method stub
+//		return this.userRepository.updateUser(userId, register);
+//	}
+//
+//	@Override
+//	public Optional<Register> getUserById(String userId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException {
+//		// TODO Auto-generated method stub
+//		
+//		return this.userRepository.getUserById(userId);
+//	}
+//
+//	@Override
+//	public Register[] getAllUsers() throws InvalidIdLengthException, InvalidNameException {
+//		// TODO Auto-generated method stub
+//		return this.userRepository.getAllUsers();
+//	}
+//
+//	@Override
+//	public String deleteUserById(String userId) throws IdNotFoundException {
+//		// TODO Auto-generated method stub
+//		return this.userRepository.deleteUserById(userId);
+//	}
+//
+//	@Override
+//	public Optional<List<Register>> getAllUsersDetails() throws InvalidIdLengthException, InvalidNameException {
+//		// TODO Auto-generated method stub
+//		return this.userRepository.getAllUsersDetails();
+//	}
 
 	
 

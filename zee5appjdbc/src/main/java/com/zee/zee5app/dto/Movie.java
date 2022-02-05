@@ -1,6 +1,7 @@
 package com.zee.zee5app.dto;
 
 import java.net.URL;
+import java.sql.ResultSet;
 
 import javax.naming.InvalidNameException;
 
@@ -22,11 +23,12 @@ public class Movie implements Comparable<Movie>{
 	private URL movieTrailer;
 	private String movieLanguage;
 	private float movieLength;
-	private String[] cast;
+	private String cast;
+	private int ageLimit;
 	
 
 	public Movie(String movieId, String movieName, String movieGenre, String movieReleaseDate, URL movieTrailer,
-			String movieLanguage, float movieLength, String[] cast) {
+			String movieLanguage, float movieLength, String cast , int ageLimit) {
 		super();
 		this.movieId = movieId;
 		this.movieName = movieName;
@@ -35,6 +37,7 @@ public class Movie implements Comparable<Movie>{
 		this.movieTrailer = movieTrailer;
 		this.movieLanguage = movieLanguage;
 		this.movieLength = movieLength;
+		this.ageLimit = ageLimit;
 		this.cast = cast;
 	}
 	

@@ -412,7 +412,7 @@ public class Main {
 		
 //		try {
 //			UserService service = UserServiceImpl.getInstance();
-//			Register register = new Register("pmh0012", "Prajwal", "hardekar", "hard1@gmail.com", "hello1234");
+//			Register register = new Register("pmh0013", "Prajwal", "hardekar", "hard2@gmail.com", "hello1234");
 //			register.setContactNumber(new BigDecimal("8080808080"));
 //			String res = service.addUser(register);
 //			System.out.println(res);
@@ -420,19 +420,19 @@ public class Main {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
+	
 		
 		
 		//====================CHANGE ROLE==========================
 		
-		try {
-			LoginService service = LoginServiceImpl.getInstance();
-			
-			System.out.println(service.changeRole("hard1@gmail.com", ROLE.ROLE_ADMIN));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			LoginService service = LoginServiceImpl.getInstance();
+//			
+//			System.out.println(service.changeRole("hard1@gmail.com", ROLE.ROLE_ADMIN));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		
 		

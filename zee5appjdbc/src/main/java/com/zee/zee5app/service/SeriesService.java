@@ -11,5 +11,6 @@ public interface SeriesService {
 	public String deleteSeries(String seriesId) throws IdNotFoundException;
 	public String updateSeries(String seriesId , Series series) throws IdNotFoundException;
 	public Optional<Series> getSeriesById(String seriesId) throws IdNotFoundException;
-	public List<Series> getAllSeries();
+	public Series[] getAllSeries();
+	public Optional<List<Series>> getAllSeriesDetails();
 }

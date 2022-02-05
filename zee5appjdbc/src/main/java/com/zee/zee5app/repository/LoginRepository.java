@@ -6,6 +6,7 @@ import com.zee.zee5app.dto.ROLE;
 public interface LoginRepository {
 	public String addCredentials(Login login);
 	public String deleteCredentials(String userName);
-	public String changePassword(String userName , String password); 
+	public String changePassword(String userName , String password);
+	public String updateCredentials(String regId , Login login);
 	public String changeRole(String userName , ROLE role);
 }

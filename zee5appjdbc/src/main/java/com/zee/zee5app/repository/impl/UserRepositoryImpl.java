@@ -73,12 +73,7 @@ public class UserRepositoryImpl implements UserRepository {
 		//here we will provide the values against ? (placeholder)
 		//In both of the above situations data will be added at runtime itself
 		
-//		try {
-//			connection = dataSource.getConnection();
-//		} catch (SQLException e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
+
 		
 		connection = dbUtils.getConnection();
 		try {
@@ -138,7 +133,65 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public String updateUser(String userId, Register register) throws IdNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		Connection connection;
+		PreparedStatement preparedStatement;
+		
+		String updateStatement = "update register"
+				+ " set regId = ?, firstName = ?, lastName = ?, email = ?, contactNumber = ?, password = ?"
+				+ " where (regId = ?)";
+		connection = dbUtils.getConnection();
+		
+		try {
+			preparedStatement = connection.prepareStatement(updateStatement);
+			//We need to provide values against ? placeholder
+			//we are taking setString cuz regId is a string based column
+			preparedStatement.setString(1, register.getId());
+			preparedStatement.setString(2, register.getFirstName());
+			preparedStatement.setString(3, register.getLastName());
+			preparedStatement.setString(4, register.getEmail());
+			preparedStatement.setBigDecimal(5, register.getContactNumber());
+			String salt = PasswordUtils.getSalt(30);
+			String encryptedPassword = PasswordUtils.generateSecurePassword(register.getPassword(), salt);
+			preparedStatement.setString(6, encryptedPassword);
+			
+			preparedStatement.setString(7, userId);
+			
+			int result = preparedStatement.executeUpdate();
+			
+			if (result>0) {
+				Login login = new Login();
+				login.setUserName(register.getEmail());
+				login.setPassword(encryptedPassword);
+				login.setRegId(register.getId());
+				login.setRole(ROLE.ROLE_USER);
+				String res = loginRepository.updateCredentials(register.getId(), login);
+				if(res.equals("Successful"))
+					return "Successful";
+				else {
+					connection.rollback();
+					return "Failed";
+				}
+			}
+			else {
+				connection.rollback();
+				return "Failed";
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return "Failed";
+		}
+		finally {
+			dbUtils.closeConnection(connection);
+		}
+		
 	}
 
 	@Override
