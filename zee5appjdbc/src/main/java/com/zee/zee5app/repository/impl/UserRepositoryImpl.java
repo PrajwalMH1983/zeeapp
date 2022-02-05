@@ -19,6 +19,7 @@ import javax.management.loading.PrivateClassLoader;
 import javax.sql.DataSource;
 
 import com.zee.zee5app.dto.Login;
+import com.zee.zee5app.dto.ROLE;
 import com.zee.zee5app.dto.Register;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
@@ -102,7 +103,7 @@ public class UserRepositoryImpl implements UserRepository {
 				login.setUserName(register.getEmail());
 				login.setPassword(encryptedPassword);
 				login.setRegId(register.getId());
-				
+				login.setRole(ROLE.ROLE_USER);
 				String res = loginRepository.addCredentials(login);
 				if(res.equals("Successful")) {
 					//connection.commit();
@@ -188,9 +189,9 @@ public class UserRepositoryImpl implements UserRepository {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-//		finally {
-//			dbUtils.closeConnection(connection);
-//		}
+		finally {
+			dbUtils.closeConnection(connection);
+		}
 		return Optional.empty();
 	}
 

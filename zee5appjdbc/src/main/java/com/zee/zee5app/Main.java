@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import com.zee.zee5app.dto.Login;
 import com.zee.zee5app.dto.Movie;
+import com.zee.zee5app.dto.ROLE;
 import com.zee.zee5app.dto.Register;
 import com.zee.zee5app.dto.Series;
 import com.zee.zee5app.dto.Subscription;
@@ -17,11 +18,13 @@ import com.zee.zee5app.exception.InvalidEmailException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.exception.InvalidNameException;
 import com.zee.zee5app.repository.UserRepository;
+import com.zee.zee5app.service.LoginService;
 import com.zee.zee5app.service.MovieService;
 import com.zee.zee5app.service.SeriesService;
 import com.zee.zee5app.service.SubscriptionService;
 import com.zee.zee5app.service.UserService;
 import com.zee.zee5app.service.UserService2;
+import com.zee.zee5app.service.impl.LoginServiceImpl;
 import com.zee.zee5app.service.impl.MovieServiceImpl;
 import com.zee.zee5app.service.impl.SeriesServiceImpl;
 import com.zee.zee5app.service.impl.SubscriptionServiceImpl;
@@ -403,13 +406,29 @@ public class Main {
 //		
 		
 		
-		//=======================================================
+		//=========================ADD USER==============================
+		
+		
+		
+//		try {
+//			UserService service = UserServiceImpl.getInstance();
+//			Register register = new Register("pmh0012", "Prajwal", "hardekar", "hard1@gmail.com", "hello1234");
+//			register.setContactNumber(new BigDecimal("8080808080"));
+//			String res = service.addUser(register);
+//			System.out.println(res);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
+		
+		//====================CHANGE ROLE==========================
+		
 		try {
-			UserService service = UserServiceImpl.getInstance();
-			Register register = new Register("pmh0011", "Prajwal", "hardekar", "hard@gmail.com", "hello1234");
-			register.setContactNumber(new BigDecimal("8080808080"));
-			String res = service.addUser(register);
-			System.out.println(res);
+			LoginService service = LoginServiceImpl.getInstance();
+			
+			System.out.println(service.changeRole("hard1@gmail.com", ROLE.ROLE_ADMIN));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
