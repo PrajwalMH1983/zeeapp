@@ -35,28 +35,37 @@ public class MainSpring {
 		
 		
 		AbstractApplicationContext applicationContext = new AnnotationConfigApplicationContext(Config.class);
-		UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-		System.out.println(userRepository);
 		
-		UserRepository userRepository2 = applicationContext.getBean(UserRepository.class);
-		System.out.println(userRepository2);
-		System.out.println(userRepository.hashCode());
-		System.out.println(userRepository2.hashCode());
-		System.out.println(userRepository.equals(userRepository2));
 		
-		DataSource dataSource = applicationContext.getBean("dataSource" , DataSource.class);
-		System.out.println(dataSource != null);
+		DataSource dataSource = applicationContext.getBean("ds" , DataSource.class);
+		System.out.println(dataSource.hashCode());
 		
-		Register register = null;
-		try {
-			register = new Register("pmh0023", "A7", "B7", "xyz7@abc.com", "hello1234" , null);
-			register.setContactNumber(new BigDecimal("9797979797"));
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+		DataSource dataSource2 = applicationContext.getBean("ds" , DataSource.class);
+		System.out.println(dataSource2.hashCode());
 		
-		System.out.println(userRepository.addUser(register));
+		System.out.println(dataSource.equals(dataSource2));
+//		UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+//		System.out.println(userRepository);
+//		
+//		UserRepository userRepository2 = applicationContext.getBean(UserRepository.class);
+//		System.out.println(userRepository2);
+//		System.out.println(userRepository.hashCode());
+//		System.out.println(userRepository2.hashCode());
+//		System.out.println(userRepository.equals(userRepository2));
+//		
+//		DataSource dataSource = applicationContext.getBean("dataSource" , DataSource.class);
+//		System.out.println(dataSource != null);
+//		
+//		Register register = null;
+//		try {
+//			register = new Register("pmh0023", "A7", "B7", "xyz7@abc.com", "hello1234" , null);
+//			register.setContactNumber(new BigDecimal("9797979797"));
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println(userRepository.addUser(register));
 		applicationContext.close();
 	}
 }

@@ -47,6 +47,8 @@ public class UserRepositoryImpl implements UserRepository {
 	@Autowired
 	LoginRepository loginRepository;// = LoginRepositoryImpl.getInstance();
 	
+	@Autowired
+	PasswordUtils passwordUtils;
 	//DBUtils dbUtils = DBUtils.getInstance();
 	
 	//private static UserRepositoryImpl repository;
@@ -105,8 +107,8 @@ public class UserRepositoryImpl implements UserRepository {
 			preparedStatement.setString(3, register.getLastName());
 			preparedStatement.setString(4, register.getEmail());
 			preparedStatement.setBigDecimal(5, register.getContactNumber());
-			String salt = PasswordUtils.getSalt(30);
-			String encryptedPassword = PasswordUtils.generateSecurePassword(register.getPassword(), salt);
+			String salt = passwordUtils.getSalt(30);
+			String encryptedPassword = passwordUtils.generateSecurePassword(register.getPassword(), salt);
 			preparedStatement.setString(6, encryptedPassword);
 			
 			//The number of rows affected by the DML statement
@@ -175,8 +177,8 @@ public class UserRepositoryImpl implements UserRepository {
 			preparedStatement.setString(3, register.getLastName());
 			preparedStatement.setString(4, register.getEmail());
 			preparedStatement.setBigDecimal(5, register.getContactNumber());
-			String salt = PasswordUtils.getSalt(30);
-			String encryptedPassword = PasswordUtils.generateSecurePassword(register.getPassword(), salt);
+			String salt = passwordUtils.getSalt(30);
+			String encryptedPassword = passwordUtils.generateSecurePassword(register.getPassword(), salt);
 			preparedStatement.setString(6, encryptedPassword);
 			
 			preparedStatement.setString(7, userId);

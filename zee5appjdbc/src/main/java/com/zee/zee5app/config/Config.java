@@ -8,7 +8,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
+
+import com.zee.zee5app.utils.PasswordUtils;
 
 
 @Configuration //It is used to mark on config class / classes
@@ -19,7 +22,7 @@ import org.springframework.core.env.Environment;
 
 
 //it helps spring / bean to search for the particular one or else it will have to search the whole repositories 
-@ComponentScan("com.zee.zee5app")
+@ComponentScan("com.zee.zee5app")	//In this base package our main method is already defined
 
 public class Config {
 	
@@ -34,8 +37,12 @@ public class Config {
 	//this method is responsible for providing the dataSource and this is responsible for managing the connections
 	//we would be getting only 1 object 
 	
-	@Bean  	//Is responsible for providing the singleton object ---> It is responsible for applying singleton DP for methods ,
+	@Bean(name = "ds")  	//Is responsible for providing the singleton object ---> It is responsible for applying singleton DP for methods ,
 	//it is a method level annotation
+	
+	//Here if u mention prototype we can have multiple objects 
+	@Scope("singleton") 	//If u will call getBean method N no.of times then u will get N objects
+	//To get multiple objects we should use prototype scope
 	
 	//If we will not specify the bean name then it will take or consider the method name as bean name 
 	public DataSource dataSource() {
@@ -47,5 +54,14 @@ public class Config {
 		basicDataSource.setDefaultAutoCommit(false);
 		
 		return basicDataSource;
+	}
+	
+	@Bean 	//we are going to create the object 
+	//this object we can initialize as per the requirements
+	//we can customize it as when required in case of bean
+	//This would be better to use when we are using a lot of customizations
+	
+	public PasswordUtils passwordUtils() {
+		return new PasswordUtils();
 	}
 }
