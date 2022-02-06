@@ -113,7 +113,7 @@ public class UserRepositoryImpl implements UserRepository {
 			//1 : one row is inserted
 			int result = preparedStatement.executeUpdate();
 			if(result > 0) {
-				//connection.commit();
+				connection.commit();
 				Login login = new Login();
 				login.setUserName(register.getEmail());
 				login.setPassword(encryptedPassword);
@@ -227,11 +227,11 @@ public class UserRepositoryImpl implements UserRepository {
 		ResultSet resultSet = null;
 		
 		String selecStatement = "select * from register where regId=?";
-//		try {
-//			connection = dataSource.getConnection();
-//		} catch (SQLException e) {
-//			// TODO: handle exception
-//		}
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
 		
 		
 		try {

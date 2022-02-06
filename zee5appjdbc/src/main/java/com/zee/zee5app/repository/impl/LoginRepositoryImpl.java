@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.zee.zee5app.dto.Login;
@@ -17,7 +18,13 @@ import com.zee.zee5app.utils.DBUtils;
 @Repository
 public class LoginRepositoryImpl implements LoginRepository {
 
-	DBUtils dbUtils = DBUtils.getInstance();
+	//DBUtils dbUtils = DBUtils.getInstance();
+	@Autowired
+	DataSource dataSource;
+	
+	@Autowired
+	private LoginRepository loginRepository;
+	
 	private LoginRepositoryImpl() throws IOException{
 		// TODO Auto-generated constructor stub
 	}
@@ -33,14 +40,19 @@ public class LoginRepositoryImpl implements LoginRepository {
 	@Override
 	public String addCredentials(Login login) {
 		// TODO Auto-generated method stub
-		Connection connection;
+		Connection connection = null;
 		PreparedStatement preparedStatement;
 		
 		String insertStatement = "insert into login"
 				+ "(userName , password , regId , role)" 
 				+ "values(? , ? , ? , ?)";
 		
-		connection = dbUtils.getConnection();
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		
 		try {
@@ -83,12 +95,17 @@ public class LoginRepositoryImpl implements LoginRepository {
 	@Override
 	public String deleteCredentials(String userName) {
 		// TODO Auto-generated method stub
-		Connection connection;
+		Connection connection = null;
 		PreparedStatement preparedStatement;
 		
 		String deleteStatement = "delete from login where userName = ?";
 		
-		connection = dbUtils.getConnection();
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			preparedStatement = connection.prepareStatement(deleteStatement);
@@ -114,20 +131,25 @@ public class LoginRepositoryImpl implements LoginRepository {
 			}
 			return "Failed";
 		}
-		finally {
-			dbUtils.closeConnection(connection);
-		}
+//		finally {
+//			dbUtils.closeConnection(connection);
+//		}
 	}
 
 	@Override
 	public String changePassword(String userName, String password) {
 		// TODO Auto-generated method stub
-		Connection connection;
+		Connection connection = null;
 		PreparedStatement preparedStatement;
 		
 		String updateStatement = "update login set password = ? where userName = ?";
 		
-		connection = dbUtils.getConnection();
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			preparedStatement = connection.prepareStatement(updateStatement);
@@ -154,20 +176,25 @@ public class LoginRepositoryImpl implements LoginRepository {
 			}
 			return "Failed";
 		}
-		finally {
-			dbUtils.closeConnection(connection);
-		}
+//		finally {
+//			dbUtils.closeConnection(connection);
+//		}
 	}
 
 	@Override
 	public String changeRole(String userName, ROLE role) {
 		// TODO Auto-generated method stub
-		Connection connection;
+		Connection connection = null;
 		PreparedStatement preparedStatement;
 		
 		String updateStatement = "update login set role=? where userName=?";
 		
-		connection = dbUtils.getConnection();
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		
 		try {
@@ -195,23 +222,28 @@ public class LoginRepositoryImpl implements LoginRepository {
 				}
 				return "Failed";
 			} 
-		finally {
-				//Closure
-				dbUtils.closeConnection(connection);
-			}
+//		finally {
+//				//Closure
+//				dbUtils.closeConnection(connection);
+//			}
 		
 	}
 
 	@Override
 	public String updateCredentials(String regId, Login login) {
 		// TODO Auto-generated method stub
-		Connection connection;
+		Connection connection = null;
 		PreparedStatement preparedStatement;
 		
 		String updateStatement = "update login"
 				+ " set userName = ?, password = ?, regId = ?, role = ?"
 				+ " where (regId = ?)";
-		connection = dbUtils.getConnection();
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		try {
 			preparedStatement = connection.prepareStatement(updateStatement);
 			preparedStatement.setString(1, login.getUserName());

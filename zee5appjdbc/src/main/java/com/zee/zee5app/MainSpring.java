@@ -49,7 +49,7 @@ public class MainSpring {
 		
 		Register register = null;
 		try {
-			register = new Register("pmh0018", "A2", "B2", "xyz2@abc.com", "hello1234" , null);
+			register = new Register("pmh0023", "A7", "B7", "xyz7@abc.com", "hello1234" , null);
 			register.setContactNumber(new BigDecimal("9797979797"));
 		} catch (Exception e) {
 			// TODO: handle exception
