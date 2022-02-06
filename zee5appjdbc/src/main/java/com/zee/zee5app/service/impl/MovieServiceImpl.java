@@ -16,19 +16,19 @@ import com.zee.zee5app.service.MovieService;
 
 public class MovieServiceImpl implements MovieService {
 
-	private MovieRepository movieRepository = MovieRepositoryImpl.getInstance();
+	private MovieRepository movieRepository;// = MovieRepositoryImpl.getInstance();
 	
 	private MovieServiceImpl() throws IOException{
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static MovieService movieService;
+	//private static MovieService movieService;
 	
-	public static MovieService getInstance() throws IOException {
-		if(movieService == null)
-			movieService = new MovieServiceImpl();
-		return movieService;
-	}
+//	public static MovieService getInstance() throws IOException {
+//		if(movieService == null)
+//			movieService = new MovieServiceImpl();
+//		return movieService;
+//	}
 	
 	
 	@Override

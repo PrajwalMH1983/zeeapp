@@ -18,6 +18,10 @@ import java.util.TreeSet;
 import javax.management.loading.PrivateClassLoader;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.zee.zee5app.dto.Login;
 import com.zee.zee5app.dto.ROLE;
 import com.zee.zee5app.dto.Register;
@@ -29,27 +33,36 @@ import com.zee.zee5app.repository.UserRepository;
 import com.zee.zee5app.utils.DBUtils;
 import com.zee.zee5app.utils.PasswordUtils;
 
+
+
+//@Component //It will create the singleton object for us 
+@Repository //Gives u singleton object as well
 public class UserRepositoryImpl implements UserRepository {
 	
 	//DBUtils dbUtils = DBUtils.getInstance();
-	LoginRepository loginRepository = LoginRepositoryImpl.getInstance();
 	
-	DBUtils dbUtils = DBUtils.getInstance();
+	@Autowired	//It will bring ur already created object either by using name / type
+	DataSource dataSource;
 	
-	private static UserRepositoryImpl repository;
+	@Autowired
+	LoginRepository loginRepository;// = LoginRepositoryImpl.getInstance();
 	
-	private UserRepositoryImpl() throws IOException{
-		
+	//DBUtils dbUtils = DBUtils.getInstance();
+	
+	//private static UserRepositoryImpl repository;
+	
+	public UserRepositoryImpl() throws IOException{
+		//loginRepository = LoginRepositoryImpl.getInstance();
 	}
 	
 	
 	//private static UserRepository repository;
 	
-	public static UserRepositoryImpl getInstance() throws IOException {
-		if(repository == null)
-			repository = new UserRepositoryImpl();
-		return repository;
-	}
+//	public static UserRepositoryImpl getInstance() throws IOException {
+//		if(repository == null)
+//			repository = new UserRepositoryImpl();
+//		return repository;
+//	}
 
 	
 	@Override
@@ -75,7 +88,14 @@ public class UserRepositoryImpl implements UserRepository {
 		
 
 		
-		connection = dbUtils.getConnection();
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		try {
 			preparedStatement = connection.prepareStatement(insertStatement);
 			//We need to provide values against ? placeholder
@@ -123,23 +143,28 @@ public class UserRepositoryImpl implements UserRepository {
 			}
 			return "Failed";
 		}
-		finally {
-			//Closure work is done in finally block
-			//without fail we have to close the connection 
-			dbUtils.closeConnection(connection);
-		}
+//		finally {
+//			//Closure work is done in finally block
+//			//without fail we have to close the connection 
+//			dbUtils.closeConnection(connection);
+//		}
 	}
 
 	@Override
 	public String updateUser(String userId, Register register) throws IdNotFoundException {
 		// TODO Auto-generated method stub
-		Connection connection;
+		Connection connection = null;
 		PreparedStatement preparedStatement;
 		
 		String updateStatement = "update register"
 				+ " set regId = ?, firstName = ?, lastName = ?, email = ?, contactNumber = ?, password = ?"
 				+ " where (regId = ?)";
-		connection = dbUtils.getConnection();
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		try {
 			preparedStatement = connection.prepareStatement(updateStatement);
@@ -188,9 +213,9 @@ public class UserRepositoryImpl implements UserRepository {
 			}
 			return "Failed";
 		}
-		finally {
-			dbUtils.closeConnection(connection);
-		}
+//		finally {
+//			dbUtils.closeConnection(connection);
+//		}
 		
 	}
 
@@ -242,9 +267,9 @@ public class UserRepositoryImpl implements UserRepository {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		finally {
-			dbUtils.closeConnection(connection);
-		}
+//		finally {
+//			dbUtils.closeConnection(connection);
+//		}
 		return Optional.empty();
 	}
 
@@ -279,7 +304,12 @@ public class UserRepositoryImpl implements UserRepository {
 		ArrayList<Register> arrayList = new ArrayList<>();
 		
 		String selecStatement = "select * from register";
-		connection = dbUtils.getConnection();
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		
 		try {
@@ -339,7 +369,12 @@ public class UserRepositoryImpl implements UserRepository {
 		//here we will provide the values against ? (placeholder)
 		//In both of the above situations data will be added at runtime itself
 		
-		connection = dbUtils.getConnection();
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			preparedStatement = connection.prepareStatement(deleteStatement);
 			//We need to provide values against ? placeholder
@@ -364,11 +399,11 @@ public class UserRepositoryImpl implements UserRepository {
 			e.printStackTrace();
 			return "Failed";
 		}
-		finally {
-			//Closure work is done in finally block
-			//without fail we have to close the connection 
-			dbUtils.closeConnection(connection);
-		}
+//		finally {
+//			//Closure work is done in finally block
+//			//without fail we have to close the connection 
+//			dbUtils.closeConnection(connection);
+//		}
 		return "Failed";
 	}
 

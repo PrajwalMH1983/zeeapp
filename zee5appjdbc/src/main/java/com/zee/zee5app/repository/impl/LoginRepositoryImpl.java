@@ -7,11 +7,14 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.stereotype.Repository;
+
 import com.zee.zee5app.dto.Login;
 import com.zee.zee5app.dto.ROLE;
 import com.zee.zee5app.repository.LoginRepository;
 import com.zee.zee5app.utils.DBUtils;
 
+@Repository
 public class LoginRepositoryImpl implements LoginRepository {
 
 	DBUtils dbUtils = DBUtils.getInstance();
@@ -19,13 +22,13 @@ public class LoginRepositoryImpl implements LoginRepository {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static LoginRepository repository;
-	
-	public static LoginRepository getInstance() throws IOException {
-		if(repository == null)
-			repository = new LoginRepositoryImpl();
-		return repository;
-	}
+//	private static LoginRepository repository;
+//	
+//	public static LoginRepository getInstance() throws IOException {
+//		if(repository == null)
+//			repository = new LoginRepositoryImpl();
+//		return repository;
+//	}
 	
 	@Override
 	public String addCredentials(Login login) {

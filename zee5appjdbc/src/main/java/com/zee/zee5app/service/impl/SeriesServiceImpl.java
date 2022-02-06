@@ -12,19 +12,19 @@ import com.zee.zee5app.service.SeriesService;
 
 public class SeriesServiceImpl implements SeriesService {
 
-	private SeriesRepository seriesRepository = SeriesRepositoryImpl.getInstance();
+	private SeriesRepository seriesRepository;// = SeriesRepositoryImpl.getInstance();
 	
 	private SeriesServiceImpl() throws IOException{
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static SeriesService seriesService;
-	
-	public static SeriesService getInstance() throws IOException {
-		if(seriesService == null)
-			seriesService = new SeriesServiceImpl();
-		return seriesService;
-	}
+//	private static SeriesService seriesService;
+//	
+//	public static SeriesService getInstance() throws IOException {
+//		if(seriesService == null)
+//			seriesService = new SeriesServiceImpl();
+//		return seriesService;
+//	}
 	
 	
 	@Override

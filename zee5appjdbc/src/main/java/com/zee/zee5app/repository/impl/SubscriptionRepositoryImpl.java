@@ -10,12 +10,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import com.zee.zee5app.dto.Subscription;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.repository.SubscriptionRepository;
 import com.zee.zee5app.utils.DBUtils;
 
+@Repository
 public class SubscriptionRepositoryImpl implements SubscriptionRepository {
 
 	private DBUtils dbUtils = DBUtils.getInstance();
@@ -24,13 +27,13 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static SubscriptionRepository subscriptionRepository;
+	//private static SubscriptionRepository subscriptionRepository;
 	
-	public static SubscriptionRepository getInstance() throws IOException {
-		if(subscriptionRepository == null)
-			subscriptionRepository = new SubscriptionRepositoryImpl();
-		return subscriptionRepository;
-	}
+//	public static SubscriptionRepository getInstance() throws IOException {
+//		if(subscriptionRepository == null)
+//			subscriptionRepository = new SubscriptionRepositoryImpl();
+//		return subscriptionRepository;
+//	}
 	
 	@Override
 	public String addSubscription(Subscription subscription) {

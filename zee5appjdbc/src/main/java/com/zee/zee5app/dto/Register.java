@@ -42,17 +42,17 @@ public class Register implements Comparable<Register>{
 		System.out.println();
 	}
 	
-	public Register(String id, String firstName, String lastName, String email, String password
-			) {
+	
+	public Register(String id, String firstName, String lastName, String email, String password,
+			BigDecimal contactNumber) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		
+		this.contactNumber = contactNumber;
 	}
-	
 	
 	
 	public void setId(String id) throws InvalidIdLengthException {
@@ -113,6 +113,12 @@ public class Register implements Comparable<Register>{
 		//For reverse order
 		return o.id.compareTo(this.getId());
 	}
+
+
+
+
+
+	
 
 
 

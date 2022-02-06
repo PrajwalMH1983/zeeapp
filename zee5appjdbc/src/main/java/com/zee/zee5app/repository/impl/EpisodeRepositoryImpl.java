@@ -9,12 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import com.zee.zee5app.dto.Episode;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.exception.InvalidNameException;
 import com.zee.zee5app.repository.EpisodeRepository;
 import com.zee.zee5app.utils.DBUtils;
+
+@Repository
 
 public class EpisodeRepositoryImpl implements EpisodeRepository {
 
@@ -25,14 +29,14 @@ public class EpisodeRepositoryImpl implements EpisodeRepository {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static EpisodeRepository episodeRepository;
-	
-	//Singleton implementation
-	public static EpisodeRepository getInstance() throws IOException {
-		if(episodeRepository == null)
-			episodeRepository = new EpisodeRepositoryImpl();
-		return episodeRepository;
-	}
+//	private static EpisodeRepository episodeRepository;
+//	
+//	//Singleton implementation
+//	public static EpisodeRepository getInstance() throws IOException {
+//		if(episodeRepository == null)
+//			episodeRepository = new EpisodeRepositoryImpl();
+//		return episodeRepository;
+//	}
 	
 	@Override
 	public String addEpisode(Episode episode) {

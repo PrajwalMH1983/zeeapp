@@ -11,11 +11,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TreeSet;
 
+import org.springframework.stereotype.Repository;
+
 import com.zee.zee5app.dto.Movie;
 import com.zee.zee5app.dto.Series;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.repository.SeriesRepository;
 import com.zee.zee5app.utils.DBUtils;
+
+@Repository
 
 public class SeriesRepositoryImpl implements SeriesRepository {
 
@@ -25,12 +29,12 @@ public class SeriesRepositoryImpl implements SeriesRepository {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static SeriesRepository seriesRepository;
-	public static SeriesRepository getInstance() throws IOException {
-		if(seriesRepository == null)
-			seriesRepository = new SeriesRepositoryImpl();
-		return seriesRepository;
-	}
+//	private static SeriesRepository seriesRepository;
+//	public static SeriesRepository getInstance() throws IOException {
+//		if(seriesRepository == null)
+//			seriesRepository = new SeriesRepositoryImpl();
+//		return seriesRepository;
+//	}
 	
 	@Override
 	public String addSeries(Series series) {

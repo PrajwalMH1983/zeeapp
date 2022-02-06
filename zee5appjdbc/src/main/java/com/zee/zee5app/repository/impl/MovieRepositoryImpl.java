@@ -14,12 +14,15 @@ import java.util.Set;
 
 import javax.naming.InvalidNameException;
 
+import org.springframework.stereotype.Repository;
+
 import com.zee.zee5app.dto.Movie;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.repository.MovieRepository;
 import com.zee.zee5app.utils.DBUtils;
 
+@Repository
 public class MovieRepositoryImpl implements MovieRepository {
 
 	DBUtils dbUtils = DBUtils.getInstance();
@@ -28,13 +31,13 @@ public class MovieRepositoryImpl implements MovieRepository {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static MovieRepository movieRepository;
+	//private static MovieRepository movieRepository;
 	
-	public static MovieRepository getInstance() throws IOException {
-		if(movieRepository == null)
-			movieRepository = new MovieRepositoryImpl();
-		return movieRepository;
-	}
+//	public static MovieRepository getInstance() throws IOException {
+//		if(movieRepository == null)
+//			movieRepository = new MovieRepositoryImpl();
+//		return movieRepository;
+//	}
 	
 
 	@Override

@@ -14,19 +14,19 @@ import com.zee.zee5app.service.EpisodeService;
 
 public class EpisodeServiceImpl implements EpisodeService {
 
-	private EpisodeRepository episodeRepository = EpisodeRepositoryImpl.getInstance();
+	private EpisodeRepository episodeRepository;// = EpisodeRepositoryImpl.getInstance();
 	
 	private EpisodeServiceImpl() throws IOException{
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static EpisodeService episodeService;
+	//private static EpisodeService episodeService;
 	
-	public static EpisodeService getInstance() throws IOException {
-		if(episodeService == null)
-			episodeService = new EpisodeServiceImpl();
-		return episodeService;
-	}
+//	public static EpisodeService getInstance() throws IOException {
+//		if(episodeService == null)
+//			episodeService = new EpisodeServiceImpl();
+//		return episodeService;
+//	}
 	
 	@Override
 	public String addEpisode(Episode episode) {

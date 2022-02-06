@@ -10,18 +10,18 @@ import com.zee.zee5app.service.LoginService;
 
 public class LoginServiceImpl implements LoginService {
 
-	private LoginRepository loginRepository = LoginRepositoryImpl.getInstance();
+	private LoginRepository loginRepository;// = LoginRepositoryImpl.getInstance();
 	
 	public LoginServiceImpl() throws IOException{
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static LoginService service;
-	public static LoginService getInstance() throws IOException {
-		if(service == null)
-			service = new LoginServiceImpl();
-		return service;
-	}
+	//private static LoginService service;
+//	public static LoginService getInstance() throws IOException {
+//		if(service == null)
+//			service = new LoginServiceImpl();
+//		return service;
+//	}
 	@Override
 	public String addCredentials(Login login) {
 		// TODO Auto-generated method stub

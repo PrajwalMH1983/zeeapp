@@ -3,6 +3,8 @@ package com.zee.zee5app.service;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
+
 import com.zee.zee5app.dto.Register;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
@@ -10,8 +12,9 @@ import com.zee.zee5app.exception.InvalidNameException;
 import com.zee.zee5app.repository.UserRepository;
 import com.zee.zee5app.repository.impl.UserRepositoryImpl;
 
+@Component
 public class UserService2 {
-	private UserRepository repository = UserRepositoryImpl.getInstance();
+	private UserRepository repository;// = UserRepositoryImpl.getInstance();
 	//Service is consuming the repository
 	
 
