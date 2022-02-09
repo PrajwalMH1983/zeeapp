@@ -37,14 +37,14 @@ public class Config {
 	//this method is responsible for providing the dataSource and this is responsible for managing the connections
 	//we would be getting only 1 object 
 	
-	//@Bean(name = "ds")  	//Is responsible for providing the singleton object ---> It is responsible for applying singleton DP for methods ,
-	//it is a method level annotation
-	
-	//Here if u mention prototype we can have multiple objects 
-	//@Scope("singleton") 	//If u will call getBean method N no.of times then u will get N objects
-	//To get multiple objects we should use prototype scope
-	
-	//If we will not specify the bean name then it will take or consider the method name as bean name 
+//	@Bean(name = "ds")  	//Is responsible for providing the singleton object ---> It is responsible for applying singleton DP for methods ,
+//	//it is a method level annotation
+//	
+//	//Here if u mention prototype we can have multiple objects 
+//	@Scope("singleton") 	//If u will call getBean method N no.of times then u will get N objects
+//	//To get multiple objects we should use prototype scope
+//	
+//	//If we will not specify the bean name then it will take or consider the method name as bean name 
 //	public DataSource dataSource() {
 //		BasicDataSource basicDataSource = new BasicDataSource();
 //		//here we have to provide the userName to connect
