@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.zee.zee5app.dto.Register;
-import com.zee.zee5app.repository.UserRepository;
+import com.zee.zee5app.service.UserService;
 
 @SpringBootApplication
 public class Zee5appspringboot2Application {
@@ -15,16 +15,20 @@ public class Zee5appspringboot2Application {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(Zee5appspringboot2Application.class,
 				args);
 
-		UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+		//UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+		
+		UserService service = applicationContext.getBean(UserService.class);
 
-		Register register = null;
-		try {
-			register = new Register("pmh0051", "A12", "B12", "xyz12@abc.com", "hello1234", null);
-			register.setContactNumber(new BigDecimal("9797979797"));
-			System.out.println(userRepository.addUser(register));
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+		for(int i=1;i<=5;++i) {
+			Register register;
+			try {
+				register = new Register("reg000" + i, "A" + i, "B" + i, "xyz" + i + "@abc.com", "hello123" + i, null);
+				register.setContactNumber(new BigDecimal("9" + i +"9" + i + "7979797"));
+				System.out.println(service.addUser(register));
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 		}
 
 		applicationContext.close();

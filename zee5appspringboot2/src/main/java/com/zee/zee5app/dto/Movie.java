@@ -1,64 +1,50 @@
 package com.zee.zee5app.dto;
 
-import java.net.URL;
-import java.sql.ResultSet;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import javax.naming.InvalidNameException;
-
-import com.zee.zee5app.exception.InvalidIdLengthException;
-
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "movie", uniqueConstraints = {@UniqueConstraint(columnNames = "movieName")})
 public class Movie implements Comparable<Movie>{
 	
-	@Setter(value = AccessLevel.NONE)
+	@Id
 	private String movieId;
-	@Setter(value = AccessLevel.NONE)
+	@NotBlank
 	private String movieName;
+	@NotBlank
 	private String movieGenre;
+	@NotBlank
 	private String movieReleaseDate;
-	private URL movieTrailer;
+	@NotBlank
+	private String movieTrailer;
+	@NotBlank
 	private String movieLanguage;
+	@NotNull
 	private float movieLength;
+	@NotBlank
 	private String cast;
+	@Max(value = 70)
 	private int ageLimit;
 	
 
-	public Movie(String movieId, String movieName, String movieGenre, String movieReleaseDate, URL movieTrailer,
-			String movieLanguage, float movieLength, String cast , int ageLimit) {
-		super();
-		this.movieId = movieId;
-		this.movieName = movieName;
-		this.movieGenre = movieGenre;
-		this.movieReleaseDate = movieReleaseDate;
-		this.movieTrailer = movieTrailer;
-		this.movieLanguage = movieLanguage;
-		this.movieLength = movieLength;
-		this.ageLimit = ageLimit;
-		this.cast = cast;
-	}
-	
-	public Movie() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public void setMovieId(String movieId) throws InvalidIdLengthException {
-		if(movieId.length() < 6) {
-			//Raise InvalidId Exception
-			throw new InvalidIdLengthException("Movie Id length is less than or equal to 6");
-		}
-		this.movieId = movieId;
-	}
-	
-	public void setMovieName(String movieName) throws InvalidNameException {
-		if(movieName == null || movieName == "" || movieName.length() < 2) {
-			throw new InvalidNameException("Movie Name is not valid");
-		}
-		this.movieName = movieName;
-	}
 	@Override
 	public int compareTo(Movie o) {
 		// TODO Auto-generated method stub

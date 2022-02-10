@@ -1,12 +1,11 @@
 package com.zee.zee5app.repository;
 
-import com.zee.zee5app.dto.Login;
-import com.zee.zee5app.dto.ROLE;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface LoginRepository {
-	public String addCredentials(Login login);
-	public String deleteCredentials(String userName);
-	public String changePassword(String userName , String password);
-	public String updateCredentials(String regId , Login login);
-	public String changeRole(String userName , ROLE role);
+import com.zee.zee5app.dto.Login;
+
+@Repository
+public interface LoginRepository extends JpaRepository<Login, String> {
+
 }

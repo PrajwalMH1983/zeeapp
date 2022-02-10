@@ -1,17 +1,11 @@
 package com.zee.zee5app.repository;
 
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.zee.zee5app.dto.Subscription;
-import com.zee.zee5app.exception.IdNotFoundException;
-import com.zee.zee5app.exception.InvalidIdLengthException;
 
-public interface SubscriptionRepository {
-	public String addSubscription(Subscription subscription);
-	public String deleteSubscription(String subId) throws IdNotFoundException;
-	public String updateSubscription(String subId , Subscription subscription) throws IdNotFoundException;
-	public Optional<Subscription> getSubscriptionById(String subId) throws IdNotFoundException, InvalidIdLengthException;
-	public Subscription[] getAllSubscriptions() throws InvalidIdLengthException;
-	public Optional<List<Subscription>> getAllSubscriptionDetails() throws InvalidIdLengthException;
+@Repository
+public interface SubscriptionRepository extends JpaRepository<Subscription, String> {
+
 }

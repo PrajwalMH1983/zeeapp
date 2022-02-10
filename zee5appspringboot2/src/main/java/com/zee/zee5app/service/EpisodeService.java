@@ -8,11 +8,11 @@ import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.exception.InvalidNameException;
 
+
 public interface EpisodeService {
 	public String addEpisode(Episode episode);
 	public Optional<Episode> getEpisodeById(String epiId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException;
-	public String updateEpisode(String epiId , Episode episode) throws IdNotFoundException;
-	public String deleteEpisode(String epiId) throws IdNotFoundException;
+	public String deleteEpisode(String epiId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException;
 	public Episode[] getAllEpisodes();
 	public Optional<List<Episode>> getAllEpisodeDetails() throws InvalidIdLengthException, InvalidNameException;
 }

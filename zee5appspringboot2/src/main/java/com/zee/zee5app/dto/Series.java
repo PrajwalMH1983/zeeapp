@@ -1,45 +1,60 @@
 package com.zee.zee5app.dto;
 
-import java.net.URL;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "series", uniqueConstraints = {@UniqueConstraint(columnNames = "seriesName")})
 public class Series implements Comparable<Series>{
-	private String seriesName;
+	
+	@Id
 	private String seriesId;
+	@NotBlank
+	private String seriesName;
+	@NotBlank
 	private String seriesGenre;
+	@NotNull
 	private String seriesReleaseDate;
+	@NotBlank
 	private String seriesLanguage;
+	@NotBlank
 	private String seriesCast;
+	@Min(value = 1)
 	private int seriesNoOfEpisodes;
+	@Max(value = 70)
 	private int ageLimit;
-	private float seriesLength;
+	private String trailer;
 	
-	public Series() {
-		System.out.println("Done");
-	}
-	
-	public Series(String seriesName, String seriesId, int ageLimit ,String seriesGenre, String seriesCast ,float seriesLength ,String seriesReleaseDate,
-			String seriesLanguage, int seriesNoOfEpisodes) {
-		super();
-		this.seriesName = seriesName;
-		this.seriesId = seriesId;
-		this.ageLimit = ageLimit;
-		this.seriesGenre = seriesGenre;
-		this.seriesCast = seriesCast;
-		this.seriesLength = seriesLength;
-		this.seriesReleaseDate = seriesReleaseDate;
-		this.seriesLanguage = seriesLanguage;
-		this.seriesNoOfEpisodes = seriesNoOfEpisodes;
-		
-	}
+	//@OneToMany(mappedBy = "series", cascade = CascadeType.ALL)
+	//private List<Episode> episodes = new ArrayList<Episode>();
 
 	@Override
 	public int compareTo(Series o) {
 		// TODO Auto-generated method stub
 		return this.seriesId.compareTo(o.getSeriesId());
 	}
+
+
+
 	
 	
 }

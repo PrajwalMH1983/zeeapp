@@ -1,52 +1,52 @@
 package com.zee.zee5app.dto;
 
-import com.zee.zee5app.exception.InvalidIdLengthException;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Data
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 @Setter
+@Entity
+@Table(name = "subscription")
 public class Subscription implements Comparable<Subscription>{
 	
-	@Setter(value = AccessLevel.NONE)
+	@Id
 	private String subId;
-	private String subType;		//Annual , quarterly , monthly
-	private String subCountry;
-	private String subPaymentMode;
-	private String subAutoRenewal;
+	@NotNull
 	private String dateOfPayment;
+	@NotNull
 	private String subExpiry;
-	private String subStatus;
+	@NotNull
 	private int subAmount;
+	@NotBlank
+	private String subPaymentMode;
+	@NotBlank
+	private String subStatus;
+	@NotBlank
+	private String subType;		//Annual , quarterly , monthly
+	@NotBlank
+	private String subAutoRenewal;
+	@NotBlank
 	private String regId;
 	
-	public Subscription() {
-		
-	}
-	
-
-	public Subscription(String subId, String subType, String subCountry, String subPaymentMode, String subAutoRenewal,
-			String dateOfPayment, String subExpiry, String subStatus, int subAmount , String regId) {
-		super();
-		this.subId = subId;
-		this.subType = subType;
-		this.subCountry = subCountry;
-		this.subPaymentMode = subPaymentMode;
-		this.subAutoRenewal = subAutoRenewal;
-		this.dateOfPayment = dateOfPayment;
-		this.subExpiry = subExpiry;
-		this.subStatus = subStatus;
-		this.subAmount = subAmount;
-		this.regId = regId;
-	}
-	
-	public void setId(String subId) throws InvalidIdLengthException {
-		if(subId.length()<6)
-			throw new InvalidIdLengthException("Id length is less than 6");
-		this.subId = subId;
-	}
+//	@OneToOne
+//	@JoinColumn(name = "regId")
+//	private Register register;
 	
 	@Override
 	public int compareTo(Subscription o) {
