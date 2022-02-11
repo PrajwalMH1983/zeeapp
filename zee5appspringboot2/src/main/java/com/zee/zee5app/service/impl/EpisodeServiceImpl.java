@@ -1,6 +1,5 @@
 package com.zee.zee5app.service.impl;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +19,9 @@ public class EpisodeServiceImpl implements EpisodeService {
 	@Autowired
 	private EpisodeRepository episodeRepository;// = EpisodeRepositoryImpl.getInstance();
 	
-	private EpisodeServiceImpl() throws IOException{
-		// TODO Auto-generated constructor stub
-	}
+//	private EpisodeServiceImpl() throws IOException{
+//		// TODO Auto-generated constructor stub
+//	}
 	
 	//private static EpisodeService episodeService;
 	

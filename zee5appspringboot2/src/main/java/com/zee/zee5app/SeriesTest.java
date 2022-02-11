@@ -17,9 +17,9 @@ public class SeriesTest {
 				SpringApplication.run(SeriesTest.class, args);
 		
 		SeriesService seriesService = applicationContext.getBean(SeriesService.class);
-		System.out.println("Add Series");
+		System.out.println("ADD SERIES");
 		for (int i = 1; i <= 5; i++) {
-			Series series = new Series("ser000"+i, "SeriesName "+i, "Genre "+i , "2022-04-0"+i, "Language"+i ,  "Cast"+i , 5+i , 18+i , null);
+			Series series = new Series("ser000"+i, "SeriesName "+i, 5+i, null, "Cast "+i, "Genre "+i, "2022-04-0"+i, "Language "+i, 18+i, null);
 			System.out.println(seriesService.addSeries(series) + " " + i);
 		}
 		System.out.println();

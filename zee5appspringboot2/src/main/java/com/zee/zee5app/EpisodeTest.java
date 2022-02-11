@@ -25,7 +25,7 @@ public class EpisodeTest {
 		System.out.println("ADDING EPISODE :\n");
 		
 		for(int i=1;i<=5;++i) {
-			Episode episode = new Episode("epi000" + i , "ser000" + i , "episodeName " + i , 30 + i , "Link : " + i , null);
+			Episode episode = new Episode("epi000" + i, "episodeName " + i , 30 + i , "Link : " + i , null , null);
 			System.out.println(episodeService.addEpisode(episode) + " " + i);
 		}
 		

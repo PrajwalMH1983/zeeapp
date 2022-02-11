@@ -20,7 +20,7 @@ public class SubscriptionTest {
 		SubscriptionService subscriptionService = applicationContext.getBean(SubscriptionService.class);
 		System.out.println("ADD SUBSCRIPTION : ");
 		for (int i = 1; i <= 5; i++) {
-			Subscription subscription = new Subscription("sub000"+i, "2022-03-0"+i, "2023-03-0"+i, 1000+i, "debit "+i, "yearly "+i, "active "+i, "true "+i, "reg000"+i);
+			Subscription subscription = new Subscription("sub000"+i, "2022-03-0"+i, "2023-03-0"+i, 1000+i, "debit "+i, "yearly "+i, "active "+i, "true "+i, null);
 			System.out.println(subscriptionService.addSubscription(subscription) + " " + i);
 		}
 		System.out.println();

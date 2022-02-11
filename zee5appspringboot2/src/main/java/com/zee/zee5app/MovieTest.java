@@ -19,6 +19,8 @@ public class MovieTest {
 		ConfigurableApplicationContext applicationContext =
 				SpringApplication.run(MovieTest.class, args);
 		
+		//MovieRepository movieRepository = applicationContext.getBean(MovieRepository.class);
+		
 		MovieService movieService = applicationContext.getBean(MovieService.class);
 		System.out.println("ADD MOVIE");
 		for (int i = 1; i <= 5; i++) {
@@ -64,6 +66,8 @@ public class MovieTest {
 			e.printStackTrace();
 		}
 		System.out.println();
+		
+		//System.out.println(movieRepository.existsByMovieNameAndMovieLanguage("MovieName 1", "Language1"));
 		
 		applicationContext.close();
 	}

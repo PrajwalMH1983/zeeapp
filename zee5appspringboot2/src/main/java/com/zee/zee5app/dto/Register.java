@@ -1,10 +1,16 @@
 package com.zee.zee5app.dto;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -62,14 +68,32 @@ public class Register implements Comparable<Register>{
 	
 	private BigDecimal contactNumber;
 	
-
+	
+	//Many roles will be allocated to many users 
+	//and many users can have multiple roles
+	@ManyToMany
+	//we want to mention this relationship into 3rd table
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "regId"),
+	inverseJoinColumns = @JoinColumn(name = "roleId"))//maintain the relationship between 
+	//InverseJoin is for role table and the join column is for the register table
+	//registered user(regId) and role(roleId)
+	private Set<Role> roles = new HashSet<>();
+	
+	@OneToOne
+    //@OneToOne(fetch=FetchType.LAZY)
+  //  @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+  //  @JsonSerialize(using = CustomListSerialUser.class)
+    @JoinColumn(name = "regId")
+    //@JsonProperty(access=Access.WRITE_ONLY)
+	private Register register;
+	
 	@Override
 	public int compareTo(Register o) {
 		// TODO Auto-generated method stub
 		//return this.id.compareTo(o.getId());
 		
 		//For reverse order
-		return o.id.compareTo(this.getId());
+		return this.id.compareTo(o.getId());
 	}
 
 

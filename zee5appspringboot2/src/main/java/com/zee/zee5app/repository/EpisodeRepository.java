@@ -7,5 +7,5 @@ import com.zee.zee5app.dto.Episode;
 
 @Repository
 public interface EpisodeRepository extends JpaRepository<Episode, String> {
-
+	
 }
