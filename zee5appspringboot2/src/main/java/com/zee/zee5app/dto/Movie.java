@@ -33,6 +33,9 @@ public class Movie implements Comparable<Movie>{
 	private String movieGenre;
 	@NotBlank
 	private String movieReleaseDate;
+	//Holds any kind of binary data
+//	@Lob
+//	private byte[] movieTrailer;
 	@NotBlank
 	private String movieTrailer;
 	@NotBlank

@@ -24,8 +24,8 @@ public class MovieTest {
 		MovieService movieService = applicationContext.getBean(MovieService.class);
 		System.out.println("ADD MOVIE");
 		for (int i = 1; i <= 5; i++) {
-			Movie movie = new Movie("mov000"+i, "MovieName "+i, "Genre"+i, "2022-04-"+i ,"Link"+i, "Language"+i , 120 + i, "Cast " + i , 3 + i);
-			System.out.println(movieService.addMovie(movie) + " " + i);
+			//Movie movie = new Movie("mov000"+i, "MovieName "+i, "Genre"+i, "2022-04-"+i ,"Link"+i, "Language"+i , 120 + i, "Cast " + i , 3 + i);
+			//System.out.println(movieService.addMovie(movie) + " " + i);
 		}
 		System.out.println();
 		

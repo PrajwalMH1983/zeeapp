@@ -39,7 +39,7 @@ public class MovieServiceImpl implements MovieService {
 		// TODO Auto-generated method stub
 		Movie movie2 = movieRepository.save(movie);
 		if(movie2 != null)
-			return "Succesful";
+			return "Successful";
 		else
 			return "Failed";
 	}

@@ -1,20 +1,33 @@
 package com.zee.zee5app;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+
+import javax.naming.InvalidNameException;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import com.zee.zee5app.dto.EROLE;
 import com.zee.zee5app.dto.Episode;
+import com.zee.zee5app.dto.Movie;
 import com.zee.zee5app.dto.Register;
 import com.zee.zee5app.dto.Role;
 import com.zee.zee5app.dto.Series;
 import com.zee.zee5app.dto.Subscription;
 import com.zee.zee5app.exception.AlreadyExistsException;
+import com.zee.zee5app.exception.IdNotFoundException;
+import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.repository.RoleRepository;
 import com.zee.zee5app.service.EpisodeService;
+import com.zee.zee5app.service.MovieService;
 import com.zee.zee5app.service.RoleService;
 import com.zee.zee5app.service.SeriesService;
 import com.zee.zee5app.service.SubscriptionService;
@@ -31,7 +44,7 @@ public class Zee5appspringboot2Application {
 		RoleService roleService = applicationContext.getBean(RoleService.class);
 		UserService userService = applicationContext.getBean(UserService.class);
 		RoleRepository roleRepository = applicationContext.getBean(RoleRepository.class);
-		
+		MovieService movieService = applicationContext.getBean(MovieService.class);
 		
 		
 		
@@ -96,8 +109,98 @@ public class Zee5appspringboot2Application {
 //		subscription.setRegister(register2);
 //		System.out.println(subscriptionService.addSubscription(subscription2));
 		
+		//================================== MOVIE ===========================
+//		Movie movie = new Movie();
+//		movie.setMovieId("mov001");
+//		movie.setAgeLimit(18);
+//		movie.setCast("Virat Kohli");
+//		movie.setMovieLanguage("Kannada");
+//		movie.setMovieGenre("Cricket");
+//		movie.setMovieName("Life");
+//		movie.setMovieLength(180);
+//		movie.setMovieReleaseDate("2020-11-05");
+//		
+//		
+//		// ======================== USING BYTE[] FILEINPUT AND FILEOUTPUT=================
+//		FileInputStream fileInputStream = null;
+//		FileOutputStream fileOutputStream = null;
+//		try {
+//			fileInputStream = new FileInputStream("C:\\Users\\prajwal.hardekar\\Downloads\\Virat.mp4");
+//			File file = new File("C:\\Users\\prajwal.hardekar\\Downloads\\Virat.mp4");
+//			//long fileSize = new File("C:\\Users\\prajwal.hardekar\\Downloads\\Virat.mp4").length();
+//			long fileSize = file.length();
+//			byte[] allBytes = new byte[(int) fileSize];
+//			fileInputStream.read(allBytes);
+//			
+//			movie.setMovieTrailer("C:\\Users\\prajwal.hardekar\\Downloads\\Virat.mp4");
+//			
+//			String result = movieService.addMovie(movie);
+//			
+//			if(result.equals("Successful")) {
+//				fileOutputStream = new FileOutputStream("C:\\Users\\prajwal.hardekar\\Downloads\\MovieStore\\" + file.getName());
+//				
+//				byte[] data = new byte[(int)file.length()];
+//				
+//				fileInputStream.read(data);
+//				fileOutputStream.write(data);
+//							
+//			}
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		finally {
+//			try {
+//				fileInputStream.close();
+//				fileOutputStream.close();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		
+//		
+//		FileOutputStream fileOutputStream = null;
+//		try {
+//			Optional<Movie> optional = movieService.getMovieById("mov001");
+//			if(optional.isEmpty()) {
+//				System.out.println("Record Not Found");
+//			} else {
+//				//We should print the info and copy the file to movies folder with name virat2
+//				Movie movie = optional.get();
+//				fileOutputStream = new FileOutputStream("C:\\Users\\prajwal.hardekar\\Downloads\\read\\virat2.mp4");
+//				fileOutputStream.write(movie.getMovieTrailer());
+//				
+//			}
+//		} catch (InvalidNameException | IdNotFoundException | InvalidIdLengthException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (FileNotFoundException e) {
+//			
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				fileOutputStream.close();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		
+		
+		
+		
+		
+		
 		//System.out.println(userRepository.existsByEmailAndContactNumber("xyz1@abc.com" , new BigDecimal(91917979797.00)));
-		applicationContext.close();
+		//applicationContext.close();
 	}
 
 }
