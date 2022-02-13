@@ -19,19 +19,19 @@ public class LoginTest {
 		LoginService loginService = applicationContext.getBean(LoginService.class);
 		System.out.println("LOGIN :");
 		for (int i = 1; i <= 5; i++) {
-			Login login = new Login("praj"+i+"@gmail.com", "hello12"+i,null);
+			Login login = new Login("xyz"+i+"@gmail.com", "hello123"+i,null);
 			System.out.println(loginService.addCredentials(login) + " " + i);
 		}
 		System.out.println();
 		
-		System.out.println("DELETE LOGIN BY EMAILID");
-		try {
-			System.out.println(loginService.deleteCredentials("praj2@gmail.com"));
-		} catch (IdNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		System.out.println();
+//		System.out.println("DELETE LOGIN BY EMAILID");
+//		try {
+//			System.out.println(loginService.deleteCredentials("praj2@gmail.com"));
+//		} catch (IdNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		System.out.println();
 		
 		applicationContext.close();
 

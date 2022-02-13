@@ -43,14 +43,14 @@ public class SubscriptionTest {
 		}
 		System.out.println();
 		
-		System.out.println("DELETE SUBSCRIPTION BY ID :");
-		try {
-			System.out.println(subscriptionService.deleteSubscription("sub0003"));
-		} catch (IdNotFoundException | InvalidIdLengthException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		System.out.println();
+//		System.out.println("DELETE SUBSCRIPTION BY ID :");
+//		try {
+//			System.out.println(subscriptionService.deleteSubscription("sub0003"));
+//		} catch (IdNotFoundException | InvalidIdLengthException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		System.out.println();
 		
 		System.out.println("GET ALL SUBSCRIPTION DETAILS IN ARRAY :");
 		try {

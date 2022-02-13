@@ -1,6 +1,6 @@
 package com.zee.zee5app.dto;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +17,15 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.zee.zee5app.utils.CustomListSerializer;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -48,7 +57,8 @@ public class Register implements Comparable<Register>{
 	//then assign the value
 	//All camel case is converted to snake case
 	@Id		//JPA will consider this column as Primary key
-	@Column(name = "regId")		//Specifies the column name as regId in the table
+	@Column(name = "regId")	//Specifies the column name as regId in the table
+	@Length(min = 6)
 	private String id;
 	
 	@Size(max = 70)
@@ -68,12 +78,13 @@ public class Register implements Comparable<Register>{
 	private String password;
 	
 	@NotNull
-	private BigDecimal contactNumber;
+	private BigInteger contactNumber;
 	
 	
 	//Many roles will be allocated to many users 
 	//and many users can have multiple roles
 	@ManyToMany
+	//@JsonIgnore
 	//we want to mention this relationship into 3rd table
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "regId"),
 	inverseJoinColumns = @JoinColumn(name = "roleId"))//maintain the relationship between 
@@ -83,11 +94,16 @@ public class Register implements Comparable<Register>{
 	
 	@OneToOne(mappedBy = "register" , cascade = CascadeType.ALL)
     //@OneToOne(fetch=FetchType.LAZY)
-  //  @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-  //  @JsonSerialize(using = CustomListSerialUser.class)
-    //@JoinColumn(name = "regId")
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonSerialize(using = CustomListSerializer.class)
+    @JoinColumn(name = "regId")
     //@JsonProperty(access=Access.WRITE_ONLY)
+	@JsonIgnore
 	private Login login;
+	
+	
+	@OneToOne(mappedBy = "register" , cascade = CascadeType.ALL)
+	private Subscription subscription;
 	
 	@Override
 	public int compareTo(Register o) {

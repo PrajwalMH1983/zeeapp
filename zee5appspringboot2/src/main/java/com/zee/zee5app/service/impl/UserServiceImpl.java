@@ -59,27 +59,35 @@ public class UserServiceImpl implements UserService {
 		Register register2 = userRepository.save(register);
 		
 		if(register2 != null) {
-//			Login login = new Login(register2.getEmail(), register2.getPassword(), register2.getId());
-//			if(loginRepository.existsByUserName(login.getUserName()))
-//				throw new AlreadyExistsException("This Record Already Exists");
-//			String result = loginService.addCredentials(login);
-//			if(result.equals("Successful"))
-//				return "Successfull";
-//			else {
+			Login login = new Login(register.getEmail(), register.getPassword() , register2);
+			if(loginRepository.existsByUserName(register.getEmail()))
+				throw new AlreadyExistsException("This Record Already Exists");
+			String result = loginService.addCredentials(login);
+			if(result.equals("Successful"))
+				return register2;
+			else {
 //				//rollback here
-//				return "Failed";
+				return null;
 //			}
-			return register2;
+//			return register2;
+			}
 		}
 		else
 			return null;
 	}
 
 	@Override
-	public Optional<Register> getUserById(String userId)
-			throws IdNotFoundException, InvalidIdLengthException, InvalidNameException {
+	public Register getUserById(String userId)
+			throws IdNotFoundException{
 		// TODO Auto-generated method stub
-		return userRepository.findById(userId);
+		Optional<Register> optional = userRepository.findById(userId);
+		
+		if(optional.isEmpty()) {
+			throw new IdNotFoundException("Id does not exists");
+		} else {
+			return optional.get();
+		}
+		//return userRepository.findById(userId);
 	}
 
 	@Override
@@ -91,7 +99,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<List<Register>> getAllUsersDetails() throws InvalidIdLengthException, InvalidNameException {
+	public Optional<List<Register>> getAllUsersDetails() {
 		// TODO Auto-generated method stub
 		return Optional.ofNullable(userRepository.findAll());
 	}
@@ -99,8 +107,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String deleteUserById(String userId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException {
 		// TODO Auto-generated method stub
-		Optional<Register> optional = this.getUserById(userId);
-		if(optional.isEmpty())
+		Register optional = this.getUserById(userId);
+		if(optional == null)
 			throw new IdNotFoundException("Record not Found");
 		else {
 			userRepository.deleteById(userId);

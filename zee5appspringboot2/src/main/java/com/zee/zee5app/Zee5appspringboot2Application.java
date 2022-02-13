@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -69,7 +70,7 @@ public class Zee5appspringboot2Application {
 //				roleService.addRole(role);
 //				roleService.addRole(role2);
 //				
-//				register = new Register("reg000" + i, "A" + i, "B" + i, "xyz" + i + "@abc.com", "hello123" + i, new BigDecimal("99797979766"), null , null);
+//				register = new Register("reg000" + i, "A" + i, "B" + i, "xyz" + i + "@abc.com", "hello123" + i, new BigInteger("99797979766"), null , null , null);
 //				roles.add(roleRepository.findById(1).get());
 //				roles.add(roleRepository.findById(2).get());
 //				register.setRoles(roles);
@@ -104,10 +105,10 @@ public class Zee5appspringboot2Application {
 //		System.out.println(subscriptionService.addSubscription(subscription));
 //		
 //		
-//		Subscription subscription2 = new Subscription("sub0002", "2022-03-02", "2023-03-02", 2002, "credit2", "yearly2", "active2", "true2", null);
+//		Subscription subscription2 = new Subscription("sub0002", "2022-03-02", "2023-03-02", 2002, "credit2", "yearly2", "Inactive2", "true2", null);
 //		Register register2 = new Register();
-//		register.setId("reg0001");
-//		subscription.setRegister(register2);
+//		register2.setId("reg0002");
+//		subscription2.setRegister(register2);
 //		System.out.println(subscriptionService.addSubscription(subscription2));
 		
 		//================================== MOVIE ===========================

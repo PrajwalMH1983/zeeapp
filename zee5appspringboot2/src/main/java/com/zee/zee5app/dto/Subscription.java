@@ -8,6 +8,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -46,6 +49,7 @@ public class Subscription implements Comparable<Subscription>{
 
 	@OneToOne
 	@JoinColumn(name = "regId")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private Register register;
 	
 	@Override
