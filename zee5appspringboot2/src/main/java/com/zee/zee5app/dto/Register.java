@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -40,7 +41,6 @@ import lombok.ToString;
 //we can customize the table name 
 
 @Table(name = "register")
-
 public class Register implements Comparable<Register>{
 	
 	//It should have min length of 6.
@@ -81,13 +81,13 @@ public class Register implements Comparable<Register>{
 	//registered user(regId) and role(roleId)
 	private Set<Role> roles = new HashSet<>();
 	
-	@OneToOne
+	@OneToOne(mappedBy = "register" , cascade = CascadeType.ALL)
     //@OneToOne(fetch=FetchType.LAZY)
   //  @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
   //  @JsonSerialize(using = CustomListSerialUser.class)
-    @JoinColumn(name = "regId")
+    //@JoinColumn(name = "regId")
     //@JsonProperty(access=Access.WRITE_ONLY)
-	private Register register;
+	private Login login;
 	
 	@Override
 	public int compareTo(Register o) {

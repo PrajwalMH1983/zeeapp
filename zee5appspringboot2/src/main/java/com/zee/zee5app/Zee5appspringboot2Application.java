@@ -26,6 +26,7 @@ import com.zee.zee5app.exception.AlreadyExistsException;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.repository.RoleRepository;
+import com.zee.zee5app.repository.UserRepository;
 import com.zee.zee5app.service.EpisodeService;
 import com.zee.zee5app.service.MovieService;
 import com.zee.zee5app.service.RoleService;
@@ -40,11 +41,11 @@ public class Zee5appspringboot2Application {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(Zee5appspringboot2Application.class,
 				args);
 
-		//UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-		RoleService roleService = applicationContext.getBean(RoleService.class);
-		UserService userService = applicationContext.getBean(UserService.class);
-		RoleRepository roleRepository = applicationContext.getBean(RoleRepository.class);
-		MovieService movieService = applicationContext.getBean(MovieService.class);
+//		UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+//		RoleService roleService = applicationContext.getBean(RoleService.class);
+//		UserService userService = applicationContext.getBean(UserService.class);
+//		RoleRepository roleRepository = applicationContext.getBean(RoleRepository.class);
+//		MovieService movieService = applicationContext.getBean(MovieService.class);
 		
 		
 		

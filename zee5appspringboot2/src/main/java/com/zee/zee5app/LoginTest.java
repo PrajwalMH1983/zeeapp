@@ -19,7 +19,7 @@ public class LoginTest {
 		LoginService loginService = applicationContext.getBean(LoginService.class);
 		System.out.println("LOGIN :");
 		for (int i = 1; i <= 5; i++) {
-			Login login = new Login("praj"+i+"@gmail.com", "hello12"+i, "reg000"+i);
+			Login login = new Login("praj"+i+"@gmail.com", "hello12"+i,null);
 			System.out.println(loginService.addCredentials(login) + " " + i);
 		}
 		System.out.println();

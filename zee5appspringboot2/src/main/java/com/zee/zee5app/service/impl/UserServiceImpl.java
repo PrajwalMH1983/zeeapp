@@ -49,29 +49,30 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@org.springframework.transaction.annotation.Transactional(rollbackFor = AlreadyExistsException.class)
-	public String addUser(Register register) throws AlreadyExistsException {
+	public Register addUser(Register register) throws AlreadyExistsException {
 		// TODO Auto-generated method stub
 		
-		if(userRepository.existsByEmailAndContactNumber(register.getEmail(), register.getContactNumber()))
+		boolean status = userRepository.existsByEmailAndContactNumber(register.getEmail(), register.getContactNumber()) ;
+		if(status)
 			throw new AlreadyExistsException("This Record Already Exists");
 		
 		Register register2 = userRepository.save(register);
 		
 		if(register2 != null) {
-			Login login = new Login(register2.getEmail(), register2.getPassword(), register2.getId());
-			if(loginRepository.existsByUserName(login.getUserName()))
-				throw new AlreadyExistsException("This Record Already Exists");
-			String result = loginService.addCredentials(login);
-			if(result.equals("Successful"))
-				return "Successfull";
-			else {
-				//rollback here
-				return "Failed";
-			}
-			//return "Successful";
+//			Login login = new Login(register2.getEmail(), register2.getPassword(), register2.getId());
+//			if(loginRepository.existsByUserName(login.getUserName()))
+//				throw new AlreadyExistsException("This Record Already Exists");
+//			String result = loginService.addCredentials(login);
+//			if(result.equals("Successful"))
+//				return "Successfull";
+//			else {
+//				//rollback here
+//				return "Failed";
+//			}
+			return register2;
 		}
 		else
-			return "Failed";
+			return null;
 	}
 
 	@Override

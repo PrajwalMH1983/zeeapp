@@ -10,7 +10,7 @@ import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.exception.InvalidNameException;
 
 public interface UserService {
-	public String addUser(Register register) throws AlreadyExistsException;
+	public Register addUser(Register register) throws AlreadyExistsException;
 	public Optional<Register> getUserById(String userId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException;
 	public Register[] getAllUsers() throws InvalidIdLengthException, InvalidNameException;
 	public Optional<List<Register>> getAllUsersDetails() throws InvalidIdLengthException, InvalidNameException;
