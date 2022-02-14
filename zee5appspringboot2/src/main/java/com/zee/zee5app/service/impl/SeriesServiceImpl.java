@@ -18,9 +18,9 @@ public class SeriesServiceImpl implements SeriesService {
 	@Autowired
 	private SeriesRepository seriesRepository;// = SeriesRepositoryImpl.getInstance();
 	
-	private SeriesServiceImpl() throws IOException{
-		// TODO Auto-generated constructor stub
-	}
+//	private SeriesServiceImpl() throws IOException{
+//		// TODO Auto-generated constructor stub
+//	}
 	
 //	private static SeriesService seriesService;
 //	

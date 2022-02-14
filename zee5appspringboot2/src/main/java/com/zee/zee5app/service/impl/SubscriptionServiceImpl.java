@@ -18,9 +18,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;// = SubscriptionRepositoryImpl.getInstance();
-	private SubscriptionServiceImpl() throws IOException {
-		// TODO Auto-generated constructor stub
-	}
+//	private SubscriptionServiceImpl() throws IOException {
+//		// TODO Auto-generated constructor stub
+//	}
 	
 	//private static SubscriptionService subscriptionService;
 //	public static SubscriptionService getInstance() throws IOException {

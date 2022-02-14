@@ -1,6 +1,5 @@
 package com.zee.zee5app.service.impl;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,8 +7,10 @@ import javax.naming.InvalidNameException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zee.zee5app.dto.Movie;
+import com.zee.zee5app.exception.AlreadyExistsException;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.repository.MovieRepository;
@@ -21,9 +22,9 @@ public class MovieServiceImpl implements MovieService {
 	@Autowired
 	private MovieRepository movieRepository;// = MovieRepositoryImpl.getInstance();
 	
-	private MovieServiceImpl() throws IOException{
-		// TODO Auto-generated constructor stub
-	}
+//	private MovieServiceImpl() throws IOException{
+//		// TODO Auto-generated constructor stub
+//	}
 	
 	//private static MovieService movieService;
 	
@@ -35,6 +36,7 @@ public class MovieServiceImpl implements MovieService {
 	
 	
 	@Override
+	@Transactional(rollbackFor = AlreadyExistsException.class)
 	public String addMovie(Movie movie) {
 		// TODO Auto-generated method stub
 		Movie movie2 = movieRepository.save(movie);
