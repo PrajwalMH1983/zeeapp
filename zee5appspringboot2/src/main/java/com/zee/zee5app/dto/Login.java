@@ -46,7 +46,7 @@ public class Login implements Comparable<Login>{
 	//@JsonSerialize(using = CustomListSerializer.class)
     @JoinColumn(name = "regId")
     @JsonProperty(access=Access.WRITE_ONLY)
-	private Register register;
+	private User register;
 	
 	@Override
 	public int compareTo(Login o) {

@@ -7,12 +7,16 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -49,8 +53,8 @@ import lombok.ToString;
 @Entity		//Entity class is used for ORM
 //we can customize the table name 
 
-@Table(name = "register")
-public class Register implements Comparable<Register>{
+@Table(name = "register" , uniqueConstraints = {@UniqueConstraint(columnNames = "username") , @UniqueConstraint(columnNames = "email")})
+public class User implements Comparable<User>{
 	
 	//It should have min length of 6.
 	//We have to write a code to validate the length and
@@ -58,8 +62,12 @@ public class Register implements Comparable<Register>{
 	//All camel case is converted to snake case
 	@Id		//JPA will consider this column as Primary key
 	@Column(name = "regId")	//Specifies the column name as regId in the table
-	@Length(min = 6)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@NotBlank
+	@Size(max = 20)
+	private String userName;
 	
 	@Size(max = 70)
 	@NotBlank
@@ -83,7 +91,7 @@ public class Register implements Comparable<Register>{
 	
 	//Many roles will be allocated to many users 
 	//and many users can have multiple roles
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	//@JsonIgnore
 	//we want to mention this relationship into 3rd table
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "regId"),
@@ -106,7 +114,7 @@ public class Register implements Comparable<Register>{
 	private Subscription subscription;
 	
 	@Override
-	public int compareTo(Register o) {
+	public int compareTo(User o) {
 		// TODO Auto-generated method stub
 		//return this.id.compareTo(o.getId());
 		

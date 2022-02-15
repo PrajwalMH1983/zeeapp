@@ -38,8 +38,16 @@ public class UserServiceAspect {
 	}
 	
 	
+	@Pointcut("within(com.zee.zee5app.controller..*)" + 
+			"|| within(com.zee.zee5app.service.impl..*)")
+	public void springPointCutExp2() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 	//We have used the above method name in pointcut here 
-	@AfterThrowing(pointcut = "springPointCutExp()" , throwing = "e")
+	@AfterThrowing(pointcut = "springPointCutExp() && springPointCutExp2()" , throwing = "e")
 	public void logAfterThrowingException(JoinPoint joinPoint , Throwable e) {
 		log.error("exception {}.{}() with cause {}" , joinPoint.getSignature().getDeclaringTypeName() , 
 				joinPoint.getSignature().getName() , e.getCause() != null ? e.getCause():"NULL");

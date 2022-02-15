@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zee.zee5app.dto.Login;
-import com.zee.zee5app.dto.Register;
+import com.zee.zee5app.dto.User;
 import com.zee.zee5app.exception.AlreadyExistsException;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
@@ -49,14 +49,14 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@org.springframework.transaction.annotation.Transactional(rollbackFor = AlreadyExistsException.class)
-	public Register addUser(Register register) throws AlreadyExistsException {
+	public User addUser(User register) throws AlreadyExistsException {
 		// TODO Auto-generated method stub
 		
 		boolean status = userRepository.existsByEmailAndContactNumber(register.getEmail(), register.getContactNumber()) ;
 		if(status)
 			throw new AlreadyExistsException("This Record Already Exists");
 		
-		Register register2 = userRepository.save(register);
+		User register2 = userRepository.save(register);
 		
 		if(register2 != null) {
 			Login login = new Login(register.getEmail(), register.getPassword() , register2);
@@ -77,10 +77,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Register getUserById(String userId)
+	public User getUserById(Long userId)
 			throws IdNotFoundException{
 		// TODO Auto-generated method stub
-		Optional<Register> optional = userRepository.findById(userId);
+		Optional<User> optional = userRepository.findById(userId);
 		
 		if(optional.isEmpty()) {
 			throw new IdNotFoundException("Id does not exists");
@@ -91,23 +91,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Register[] getAllUsers() throws InvalidIdLengthException, InvalidNameException {
+	public User[] getAllUsers() throws InvalidIdLengthException, InvalidNameException {
 		// TODO Auto-generated method stub
-		List<Register> list = userRepository.findAll();
-		Register[] registers = new Register[list.size()];
+		List<User> list = userRepository.findAll();
+		User[] registers = new User[list.size()];
 		return list.toArray(registers);
 	}
 
 	@Override
-	public Optional<List<Register>> getAllUsersDetails() {
+	public Optional<List<User>> getAllUsersDetails() {
 		// TODO Auto-generated method stub
 		return Optional.ofNullable(userRepository.findAll());
 	}
 
 	@Override
-	public String deleteUserById(String userId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException {
+	public String deleteUserById(Long userId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException {
 		// TODO Auto-generated method stub
-		Register optional = this.getUserById(userId);
+		User optional = this.getUserById(userId);
 		if(optional == null)
 			throw new IdNotFoundException("Record not Found");
 		else {
@@ -115,6 +115,8 @@ public class UserServiceImpl implements UserService {
 			return "Successful";
 		}
 	}
+
+	
 
 	
 

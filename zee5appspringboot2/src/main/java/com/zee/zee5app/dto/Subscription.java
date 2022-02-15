@@ -50,7 +50,7 @@ public class Subscription implements Comparable<Subscription>{
 	@OneToOne
 	@JoinColumn(name = "regId")
 	@JsonProperty(access = Access.WRITE_ONLY)
-	private Register register;
+	private User register;
 	
 	@Override
 	public int compareTo(Subscription o) {

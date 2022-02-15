@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,11 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zee.zee5app.dto.Register;
+import com.zee.zee5app.dto.User;
 import com.zee.zee5app.exception.AlreadyExistsException;
 import com.zee.zee5app.exception.IdNotFoundException;
 import com.zee.zee5app.exception.InvalidIdLengthException;
 import com.zee.zee5app.exception.InvalidNameException;
+import com.zee.zee5app.payload.response.MessageResponse;
 import com.zee.zee5app.service.UserService;
 
 @RestController	//Version 4 @ResponseBody @Controller
@@ -53,12 +56,12 @@ public class UserController {
 	//Here so now it will throw exception to spring so it will handle that now
 	//We use @Valid because it would be better to validate the data before getting it into the DB rather than validating at the DB
 	@PostMapping("/addUser")
-	public ResponseEntity<?> addUser(@Valid @RequestBody Register register) throws AlreadyExistsException {
+	public ResponseEntity<?> addUser(@Valid @RequestBody User register) throws AlreadyExistsException {
 		
 		//These things are expected for each and every REST API calls
 		//1. It should store the received info into DB
 //		try {
-			Register result = userService.addUser(register);
+			User result = userService.addUser(register);
 			System.out.println(result);
 			return ResponseEntity.status(201).body(result);
 			
@@ -87,19 +90,21 @@ public class UserController {
 	
 	//1. Retrieve a specific record
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getUserById(@PathVariable("id") String id) throws IdNotFoundException{
-		Register register = userService.getUserById(id);
+	public ResponseEntity<?> getUserById(@PathVariable("id") Long id) throws IdNotFoundException{
+		User register = userService.getUserById(id);
 		return ResponseEntity.ok(register);
 	}
 	
 	//2. Retrieving all records
 	@GetMapping("/all")
-	public ResponseEntity<?> getAllUsers() {
-		Optional<List<Register>> optional = userService.getAllUsersDetails();
+//	@PreAuthorize
+//	@PostAuthorize
+	public ResponseEntity<?> getAllUsersDetails() {
+		Optional<List<User>> optional = userService.getAllUsersDetails();
 		if(optional.isEmpty()) {
-			Map<String, String> map = new HashMap<>();
-			map.put("message" , "No Record Found");
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(map);
+//			Map<String, String> map = new HashMap<>();
+//			map.put("message" , "No Record Found");
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new MessageResponse("No Record Found"));
 		}
 		return ResponseEntity.ok(optional.get());
 	}
