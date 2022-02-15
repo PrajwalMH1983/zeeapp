@@ -19,8 +19,7 @@ spring:
       fail-on-empty-beans: FALSE
 server:
   port: 9005
-  servlet:
-    context-path: /api
+
 zee5app:
   app:
     jwtSecret: secretkey

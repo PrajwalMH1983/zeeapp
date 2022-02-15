@@ -44,7 +44,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 //Why Comparable ?
 //cuz comparable interface is providing compareTo method and this is responsible for
 //performing comparison which is used for maintaining in sorted order
@@ -55,7 +55,9 @@ import lombok.ToString;
 
 @Table(name = "register" , uniqueConstraints = {@UniqueConstraint(columnNames = "username") , @UniqueConstraint(columnNames = "email")})
 public class User implements Comparable<User>{
+
 	
+
 	//It should have min length of 6.
 	//We have to write a code to validate the length and
 	//then assign the value
@@ -85,7 +87,7 @@ public class User implements Comparable<User>{
 	@NotBlank
 	private String password;
 	
-	@NotNull
+	//@NotNull
 	private BigInteger contactNumber;
 	
 	
@@ -123,9 +125,14 @@ public class User implements Comparable<User>{
 	}
 
 
-
-
-
+	public User(String userName,String email,
+			String password ,String firstName , String lastName) {
+		this.userName = userName;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 	
 
 

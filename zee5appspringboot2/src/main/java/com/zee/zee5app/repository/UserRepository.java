@@ -13,7 +13,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	//Custom jpa method
 	//we will not write any definition
 	//Just only declaration
-	Boolean existsByEmailAndContactNumber(String email , BigInteger bigInteger);
+	//Boolean existsByEmailAndContactNumber(String email , BigInteger bigInteger);
 	
 	Optional<User> findByUserName(String userName);
+	
+	Boolean existsByUserName(String userName);
+	
+	Boolean existsByEmail(String email);
 }

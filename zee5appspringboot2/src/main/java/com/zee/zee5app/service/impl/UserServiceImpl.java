@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 	public User addUser(User register) throws AlreadyExistsException {
 		// TODO Auto-generated method stub
 		
-		boolean status = userRepository.existsByEmailAndContactNumber(register.getEmail(), register.getContactNumber()) ;
+		boolean status = userRepository.existsByEmail(register.getEmail()) ;
 		if(status)
 			throw new AlreadyExistsException("This Record Already Exists");
 		
