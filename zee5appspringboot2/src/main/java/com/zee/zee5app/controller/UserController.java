@@ -1,9 +1,7 @@
 package com.zee.zee5app.controller;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,17 +9,13 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zee.zee5app.dto.EROLE;
 import com.zee.zee5app.dto.Role;
 import com.zee.zee5app.dto.User;
-import com.zee.zee5app.exception.AlreadyExistsException;
-import com.zee.zee5app.exception.IdNotFoundException;
-import com.zee.zee5app.exception.InvalidIdLengthException;
-import com.zee.zee5app.exception.InvalidNameException;
 import com.zee.zee5app.payload.request.LoginRequest;
 import com.zee.zee5app.payload.request.SignUpRequest;
 import com.zee.zee5app.payload.response.JwtResponse;
@@ -44,6 +34,7 @@ import com.zee.zee5app.security.jwt.JwtUtils;
 import com.zee.zee5app.security.services.UserDetailsImpl;
 import com.zee.zee5app.service.UserService;
 
+@CrossOrigin("*")
 @RestController	//Version 4 @ResponseBody @Controller
 //When ur target is to deal with the REST Api
 //then u have to set the RESPONSEand wherever we have to share the response that method
@@ -100,6 +91,10 @@ public class UserController {
 				roles));
 	}
 	
+	
+	
+	
+	
 	//we are not following the older one cuz there we have relation between the role table and the
 	//user table and it increases the payload size as well
 	@PostMapping("/signup")
@@ -133,30 +128,35 @@ public class UserController {
 		//retrieving the roles details 
 		Set<String> strRoles = signUpRequest.getRole();
 		
+//		for (String role : strRoles) {
+//			System.out.println(role);
+//		}
+		
 		Set<Role> roles = new HashSet<>();
 		
 		if(strRoles == null) {
 			Role userRole = roleRepository.findByRoleName(EROLE.ROLE_USER)
-					.orElseThrow(()->new RuntimeException("Error : Role not found"));
+					.orElseThrow(()->new RuntimeException("Error : Role not found 0"));
+			roles.add(userRole);
 		}
 		else {
 			strRoles.forEach(e -> {
 				switch (e) {
 				case "admin":
 					Role roleAdmin = roleRepository.findByRoleName(EROLE.ROLE_ADMIN)
-						.orElseThrow(()-> new RuntimeException("Error : Role Not Found"));
+						.orElseThrow(()-> new RuntimeException("Error : Role Not Found 1"));
 					roles.add(roleAdmin);
 					break;
 					
 				case "mod":
 					Role roleMod = roleRepository.findByRoleName(EROLE.ROLE_MODERATOR)
-							.orElseThrow(()-> new RuntimeException("Error : Role Not Found"));
+							.orElseThrow(()-> new RuntimeException("Error : Role Not Found 2"));
 						roles.add(roleMod);
 					break;
 
 				default:
 					Role userRole = roleRepository.findByRoleName(EROLE.ROLE_USER)
-						.orElseThrow(()->new RuntimeException("Error : Role not found"));
+						.orElseThrow(()->new RuntimeException("Error : Role not found 3"));
 					roles.add(userRole);
 					break;
 				}
@@ -188,15 +188,15 @@ public class UserController {
 	
 	//Here so now it will throw exception to spring so it will handle that now
 	//We use @Valid because it would be better to validate the data before getting it into the DB rather than validating at the DB
-	@PostMapping("/addUser")
-	public ResponseEntity<?> addUser(@Valid @RequestBody User register) throws AlreadyExistsException {
-		
-		//These things are expected for each and every REST API calls
-		//1. It should store the received info into DB
-//		try {
-			User result = userService.addUser(register);
-			System.out.println(result);
-			return ResponseEntity.status(201).body(result);
+//	@PostMapping("/addUser")
+//	public ResponseEntity<?> addUser(@Valid @RequestBody User register) throws AlreadyExistsException {
+//		
+//		//These things are expected for each and every REST API calls
+//		//1. It should store the received info into DB
+////		try {
+//			User result = userService.addUser(register);
+//			System.out.println(result);
+//			return ResponseEntity.status(201).body(result);
 			
 //		} catch (AlreadyExistsException e) {
 //			// TODO Auto-generated catch block
@@ -217,30 +217,30 @@ public class UserController {
 
 		
 		//here we are supposed to return a json object with status problem 
-	}
+//	}
 	
 	
 	
 	//1. Retrieve a specific record
-	@GetMapping("/{id}")
-	public ResponseEntity<?> getUserById(@PathVariable("id") Long id) throws IdNotFoundException{
-		User register = userService.getUserById(id);
-		return ResponseEntity.ok(register);
-	}
+//	@GetMapping("/{id}")
+//	public ResponseEntity<?> getUserById(@PathVariable("id") Long id) throws IdNotFoundException{
+//		User register = userService.getUserById(id);
+//		return ResponseEntity.ok(register);
+//	}
 	
 	//2. Retrieving all records
-	@GetMapping("/all")
-//	@PreAuthorize
-//	@PostAuthorize
-	public ResponseEntity<?> getAllUsersDetails() {
-		Optional<List<User>> optional = userService.getAllUsersDetails();
-		if(optional.isEmpty()) {
-//			Map<String, String> map = new HashMap<>();
-//			map.put("message" , "No Record Found");
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new MessageResponse("No Record Found"));
-		}
-		return ResponseEntity.ok(optional.get());
-	}
+//	@GetMapping("/all")
+////	@PreAuthorize
+////	@PostAuthorize
+//	public ResponseEntity<?> getAllUsersDetails() {
+//		Optional<List<User>> optional = userService.getAllUsersDetails();
+//		if(optional.isEmpty()) {
+////			Map<String, String> map = new HashMap<>();
+////			map.put("message" , "No Record Found");
+//			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new MessageResponse("No Record Found"));
+//		}
+//		return ResponseEntity.ok(optional.get());
+//	}
 	
 	//3. page wise records
 }

@@ -2,6 +2,7 @@ package com.zee.zee5app.dto;
 
 import java.math.BigInteger;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -53,7 +54,7 @@ import lombok.ToString;
 @Entity		//Entity class is used for ORM
 //we can customize the table name 
 
-@Table(name = "register" , uniqueConstraints = {@UniqueConstraint(columnNames = "username") , @UniqueConstraint(columnNames = "email")})
+@Table(name = "user" , uniqueConstraints = {@UniqueConstraint(columnNames = "username") , @UniqueConstraint(columnNames = "email")})
 public class User implements Comparable<User>{
 
 	
@@ -63,7 +64,7 @@ public class User implements Comparable<User>{
 	//then assign the value
 	//All camel case is converted to snake case
 	@Id		//JPA will consider this column as Primary key
-	@Column(name = "regId")	//Specifies the column name as regId in the table
+	@Column(name = "userId")	//Specifies the column name as regId in the table
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
@@ -96,13 +97,13 @@ public class User implements Comparable<User>{
 	@ManyToMany(fetch = FetchType.LAZY)
 	//@JsonIgnore
 	//we want to mention this relationship into 3rd table
-	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "regId"),
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "userId"),
 	inverseJoinColumns = @JoinColumn(name = "roleId"))//maintain the relationship between 
 	//InverseJoin is for role table and the join column is for the register table
 	//registered user(regId) and role(roleId)
 	private Set<Role> roles = new HashSet<>();
 	
-	@OneToOne(mappedBy = "register" , cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user" , cascade = CascadeType.ALL , fetch=FetchType.LAZY)
     //@OneToOne(fetch=FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @JsonSerialize(using = CustomListSerializer.class)
@@ -111,8 +112,8 @@ public class User implements Comparable<User>{
 	@JsonIgnore
 	private Login login;
 	
-	
-	@OneToOne(mappedBy = "register" , cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToOne(mappedBy = "user" , cascade = CascadeType.ALL , fetch=FetchType.LAZY)
 	private Subscription subscription;
 	
 	@Override

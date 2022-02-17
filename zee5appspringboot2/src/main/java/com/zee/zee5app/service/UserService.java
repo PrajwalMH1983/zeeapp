@@ -11,7 +11,7 @@ import com.zee.zee5app.exception.InvalidNameException;
 
 public interface UserService {
 	public User addUser(User register) throws AlreadyExistsException;
-	public User getUserById(Long userId) throws IdNotFoundException;
+	public Optional<User> getUserById(Long userId) throws IdNotFoundException;
 	public User[] getAllUsers() throws InvalidIdLengthException, InvalidNameException;
 	public Optional<List<User>> getAllUsersDetails();
 	public String deleteUserById(Long userId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException;

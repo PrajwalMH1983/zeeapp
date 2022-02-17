@@ -69,12 +69,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		//without token we are not able to access any endpoints or any resources and that
 		//is done by authorizeHttpRequests() and antMatchers() 
 		
-		http.cors().and().csrf().disable()
-	      .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-	      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-	      .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-	      .antMatchers("/api/test/**").permitAll()
-	      .anyRequest().authenticated();	//Means permit any request after authentication only
+		http.cors().and()
+			.csrf()
+			.disable()
+			.exceptionHandling()
+			.authenticationEntryPoint(unauthorizedHandler).and()
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+			.authorizeRequests()
+			.antMatchers("/api/auth/**").permitAll()
+			.antMatchers("/api/test/**").permitAll()
+			.anyRequest()
+			.authenticated();	//Means permit any request after authentication only
 		
 		 http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);		
 	}

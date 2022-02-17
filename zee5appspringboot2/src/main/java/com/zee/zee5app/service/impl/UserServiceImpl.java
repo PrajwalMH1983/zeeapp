@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserById(Long userId)
+	public Optional<User> getUserById(Long userId)
 			throws IdNotFoundException{
 		// TODO Auto-generated method stub
 		Optional<User> optional = userRepository.findById(userId);
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 		if(optional.isEmpty()) {
 			throw new IdNotFoundException("Id does not exists");
 		} else {
-			return optional.get();
+			return optional;
 		}
 		//return userRepository.findById(userId);
 	}
@@ -107,8 +107,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String deleteUserById(Long userId) throws IdNotFoundException, InvalidIdLengthException, InvalidNameException {
 		// TODO Auto-generated method stub
-		User optional = this.getUserById(userId);
-		if(optional == null)
+		Optional<User> optional = this.getUserById(userId);
+		if(optional.isEmpty())
 			throw new IdNotFoundException("Record not Found");
 		else {
 			userRepository.deleteById(userId);

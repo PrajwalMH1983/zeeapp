@@ -44,9 +44,9 @@ public class Login implements Comparable<Login>{
 	@OneToOne(fetch = FetchType.LAZY)	//then and then only it will retrieve it or else it will not
    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})	//Instead of handling the JsonIgnore this is another alternative
 	//@JsonSerialize(using = CustomListSerializer.class)
-    @JoinColumn(name = "regId")
+    @JoinColumn(name = "userId")
     @JsonProperty(access=Access.WRITE_ONLY)
-	private User register;
+	private User user;
 	
 	@Override
 	public int compareTo(Login o) {

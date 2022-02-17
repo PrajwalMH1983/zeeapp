@@ -14,7 +14,7 @@ import com.zee.zee5app.service.RoleService;
 public class RoleServiceImpl implements RoleService {
 
 	@Autowired
-	private RoleRepository roleRepository;
+	RoleRepository roleRepository;
 	
 	@Override
 	@Transactional(rollbackFor = Exception.class)

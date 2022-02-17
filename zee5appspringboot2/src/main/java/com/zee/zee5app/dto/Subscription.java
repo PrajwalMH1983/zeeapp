@@ -1,6 +1,7 @@
 package com.zee.zee5app.dto;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -47,10 +49,11 @@ public class Subscription implements Comparable<Subscription>{
 	@NotBlank
 	private String subAutoRenewal;
 
-	@OneToOne
-	@JoinColumn(name = "regId")
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private User register;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId")
+	//@JsonProperty(access = Access.WRITE_ONLY)
+	@JsonIgnoreProperties({"hibernateLazyInitializer" , "handler"})
+	private User user;
 	
 	@Override
 	public int compareTo(Subscription o) {
